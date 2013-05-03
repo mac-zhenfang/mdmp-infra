@@ -1,4 +1,26 @@
-{
-	ts: 
-	metric : {key:value, key:value}
-}
+Data Model:
+
+ * {
+ * 	ts: 1251221452,
+ *  metrics : {
+ *  	output1: val,
+ *  	output2: val,
+ *  	output3: val
+ *  }
+ * },
+ * {
+ * 	ts: 1251221452,
+ *  metrics : {
+ *  	output1: val,
+ *  	output2: val,
+ *  	output3: val
+ *  }
+ * }
+ 
+ ts: timestamp
+ output1: result key get from report
+ 
+ 
+ WorkFlow:
+ 
+ App -> (datasource key) -> mdmp-infra -> decyp (datasource key) -> get (datasource id) -> use (datasoure id) call mdmp-workspace APIs to list all reports related to 
