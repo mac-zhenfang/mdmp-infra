@@ -1,4 +1,4 @@
-Data Model:
+Data_Model:
 
  * {
  * 	ts: 1251221452,
@@ -23,4 +23,8 @@ Data Model:
  
  WorkFlow:
  
- App -> (datasource key) -> mdmp-infra -> decyp (datasource key) -> get (datasource id) -> use (datasoure id) call mdmp-workspace APIs to list all reports related to 
+ 1. App -> (datasource key) -> mdmp-infra
+ 2. mdmp-infra -> decyp (datasource key) -> get (datasource id) -> use (datasoure id) call mdmp-workspace APIs to list all reports related to data source
+ 3. get logic from reports -> compute output (Data_Model)
+ 4.1 compute output (Data_Model) -> save to mongo
+ 4.2 save raw data (datasource id) into Mongo
