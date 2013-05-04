@@ -1,6 +1,7 @@
 package com.mdmp.infra.processer;
 
 import com.mdmp.infra.exception.MDMPException;
+import com.mdmp.infra.processer.kv.KVMessageProcessor;
 
 
 /**
@@ -10,9 +11,9 @@ import com.mdmp.infra.exception.MDMPException;
  */
 public class ProcessorFactory {
 	
-	public static MessageProcessor getEventLogMessageProcessor() throws MDMPException{
+	/*public static MessageProcessor getEventLogMessageProcessor() throws MDMPException{
 		return getMessageProcessor(EventLogMessageProcessor.class);
-	}
+	}*/
 
 	public static MessageProcessor getKVMessageProcessor() throws MDMPException{
         return getMessageProcessor(KVMessageProcessor.class);
