@@ -1,5 +1,8 @@
 package com.mdmp.infra.messager;
 
-public interface Message {
-
+public abstract class Message {
+	String datasourceId = null;
+	public String getDataSourceId() {
+		return datasourceId;
+	}
 }

@@ -1,6 +1,6 @@
 package com.mdmp.infra.messager;
 
-public interface TextMessage extends Message {
+public abstract class TextMessage extends Message {
 	public abstract String getType();
 
 	public abstract void setType(String type);

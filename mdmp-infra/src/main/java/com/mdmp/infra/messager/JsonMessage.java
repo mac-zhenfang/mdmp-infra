@@ -2,7 +2,7 @@ package com.mdmp.infra.messager;
 
 import org.apache.commons.lang.StringUtils;
 
-public class JsonMessage implements TextMessage{
+public class JsonMessage extends TextMessage{
 	private String text = StringUtils.EMPTY;
 	private String type;
 	
@@ -25,5 +25,4 @@ public class JsonMessage implements TextMessage{
 	public String getText() {
 		return text;
 	}
-
 }
