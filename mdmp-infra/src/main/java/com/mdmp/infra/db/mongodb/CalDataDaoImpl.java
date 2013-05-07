@@ -4,6 +4,7 @@
 package com.mdmp.infra.db.mongodb;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
@@ -12,11 +13,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 
 /**
  * @author zhefang
  * 
  */
+@Service("mongodbService")
 public class CalDataDaoImpl implements CalDataDao {
 
 	MongoTemplate mongoTemplate;
@@ -131,5 +137,21 @@ public class CalDataDaoImpl implements CalDataDao {
 	public <S extends Metrics> S save(S arg0) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void put(String collection, String timestamp, Map<String, Object> kv) {
+		DBCollection caldata = db.getCollection("caldata");
+		for (int i = 0; i < 1000; i++) {
+			BasicDBObject metrics = new BasicDBObject();
+			metrics.put("ts", System.currentTimeMillis());
+			BasicDBObject metric = new BasicDBObject();
+			metric.put("key1", 1);
+			metric.put("key2", 1);
+			metric.put("key3", 1);
+			metric.put("key4", 1);
+			metrics.put("metric", metric);
+			caldata.insert(metrics);
+		}
 	}
 }

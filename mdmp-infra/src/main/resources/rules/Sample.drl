@@ -1,0 +1,23 @@
+package com.mdmp.infra.rule
+ 
+import com.mdmp.infra.rule.DroolsTest.Message;
+ 
+rule "Hello World"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println( "Rule: Hello World" );
+    	System.out.println("Niu bility");
+        System.out.println( myMessage );
+        m.setMessage( "Goodbye Johnny" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "GoodBye"
+    when
+        Message( status == Message.GOODBYE, myMessage : message )
+    then
+        System.out.println( "Rule: GoodBye" );
+        System.out.println( myMessage );
+end

@@ -4,6 +4,7 @@
 package com.mdmp.infra.db.mongodb;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -53,4 +54,5 @@ public interface CalDataDao extends MongoRepository<Metrics, ObjectId>{
 	
 	public List<Metrics> listAll(String collection);
 	
+	public void put(String collection, String timestamp, Map<String, Object> kv);
 }

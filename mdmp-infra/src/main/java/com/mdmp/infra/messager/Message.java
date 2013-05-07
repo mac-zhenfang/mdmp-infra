@@ -5,4 +5,8 @@ public abstract class Message {
 	public String getDataSourceId() {
 		return datasourceId;
 	}
+	public String getTimeStamp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
