@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonNode;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdmp.infra.messager.JsonMessage;
 import com.mdmp.infra.messager.Message;
+import net.sf.json.JSONObject;
 
 
 public class InfraController extends HttpServlet{
@@ -26,7 +29,9 @@ public class InfraController extends HttpServlet{
 			throws ServletException, IOException {
 //		StringValidator.verifyEmpty("jsonObject", appStr);
 //		Message msg = mapper.readValue(appStr, DataSource.class);
-		Message msg = null;
+		String appStr = null;
+		JSONObject j = JSONObject.fromObject(appStr);
+		JsonMessage msg = new JsonMessage(j);
 		infraService.processMessage(msg);
 	}
 }
