@@ -6,8 +6,11 @@ import org.apache.commons.lang.StringUtils;
 
 public class JsonMessage extends TextMessage{
 	private String text = StringUtils.EMPTY;
-	private String type;
 	private JSONObject _json;
+	
+	public JsonMessage(String jsonStr){
+		this(JSONObject.fromObject(jsonStr));
+	}
 	
 	public JsonMessage(JSONObject json){
 		_json = json;
@@ -17,14 +20,13 @@ public class JsonMessage extends TextMessage{
 		return _json.get(key);
 	}
 	
-	@Override
-	public String getType() {
-		return type;
+	public Object putValue(Object key, Object value){
+		return _json.put(key, value);
 	}
-
+	
 	@Override
-	public void setType(String type) {
-		this.type = type;
+	public int getType() {
+		return Message.MSG_JSON;
 	}
 
 	@Override
