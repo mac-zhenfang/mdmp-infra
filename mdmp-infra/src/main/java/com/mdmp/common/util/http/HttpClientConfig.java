@@ -1,4 +1,4 @@
-package com.mdmp.common.util;
+package com.mdmp.common.util.http;
 
 import org.apache.http.client.CredentialsProvider;
 

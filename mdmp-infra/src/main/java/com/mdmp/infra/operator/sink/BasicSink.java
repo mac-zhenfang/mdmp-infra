@@ -1,8 +1,8 @@
-package com.mdmp.infra.handler.forward;
+package com.mdmp.infra.operator.sink;
 
-import com.mdmp.infra.handler.AbstractMessageHandler;
-import com.mdmp.infra.handler.MessageHandler;
-import com.mdmp.infra.messager.Message;
+import com.mdmp.infra.message.Message;
+import com.mdmp.infra.operator.AbstractMessageOperator;
+import com.mdmp.infra.operator.MessageOperator;
 
 /**
  * Forward message to another storage system, not change it.
@@ -10,7 +10,7 @@ import com.mdmp.infra.messager.Message;
  * @author dream
  *
  */
-public abstract class ForwardMessageHandler extends AbstractMessageHandler {
+public abstract class BasicSink extends AbstractMessageOperator {
 	
 	@Override
 	public Message processMessage(Message message) throws Exception {

@@ -1,4 +1,4 @@
-package com.mdmp.common.util;
+package com.mdmp.common.util.http;
 
 import java.io.IOException;
 import java.io.InputStream;
