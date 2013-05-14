@@ -1,4 +1,4 @@
-package com.mdmp.infra.rule;
+package com.mdmp.infra.model;
 
 import org.drools.KnowledgeBase;
 import org.drools.KnowledgeBaseFactory;

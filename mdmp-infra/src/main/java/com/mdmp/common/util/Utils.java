@@ -1,25 +1,16 @@
 package com.mdmp.common.util;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.mdmp.common.exception.ErrorCode;
+import com.mdmp.common.util.http.HttpClientUtil;
+import com.mdmp.common.util.http.RequestResponse;
 
 
 public class Utils {
 
-  public static Map<String, String> getRandomToken() {
-    Map<String, String> header = new HashMap<String, String>();
-    header.put(APIConstants.USER_TOKEN, StringUtils.getRandomEmail());
-    return header;
-  }
-  
-  public static Map<String, String> getRandomToken(String token) {
-    Map<String, String> header = new HashMap<String, String>();
-    header.put(APIConstants.USER_TOKEN, token);
-    return header;
-  }
-  
   public static int requestResponseStatCode(String uri, String method, Object original, 
 		  Map<String, String> header) throws Exception {
 	  RequestResponse result = null;
@@ -91,13 +82,13 @@ public class Utils {
                         Map<String, String> header, boolean isSucc) throws Exception {
 	  RequestResponse result = null;
     if (method.equalsIgnoreCase("POST")) {
-      result = HttpClientUtil.requestPost(uri, header, content, isSucc);
+      result = HttpClientUtil.requestPost(uri, header, content);
     } else if (method.equalsIgnoreCase("GET")) {
-      result = HttpClientUtil.requestGet(uri, header, isSucc);
+      result = HttpClientUtil.requestGet(uri, header);
     } else if (method.equalsIgnoreCase("PUT")) {
-      result = HttpClientUtil.requestPut(uri, header, content, isSucc);
+      result = HttpClientUtil.requestPut(uri, header, content);
     } else {
-      result = HttpClientUtil.requestDelete(uri, header, isSucc);
+      result = HttpClientUtil.requestDelete(uri, header);
     }
     
     return result;

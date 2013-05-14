@@ -1,6 +1,6 @@
 package com.mdmp.infra.rule
  
-import com.mdmp.infra.rule.DroolsTest.Message;
+import com.mdmp.infra.rules.DroolsTest.Message;
  
 rule "Hello World"
     when
