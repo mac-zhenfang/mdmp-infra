@@ -16,20 +16,17 @@ import com.mdmp.infra.operator.OperatorFactory;
 @Service("infraService")
 public class InfraServiceImpl implements InfraService {
 
-	/**
-	 * DataSourceId ===> Report Set
-	 */
-	//private Map<String, Set<Report>> reportCache = new ConcurrentHashMap<String, Set<Report>>();
-	
 	@Override
 	public void processMessage(Message msg) {
 		// Get data source Id
 		String dsId = msg.getDataSourceId();
 		try {
 			// Init Handler chain by Handler Factory
-			//MessageOperator handler = OperatorFactory.initHandlerChain(dsId);
 			Report report = CacheManager.getReportCacheInstance().getReport(dsId);
 			MessageOperator handler = CacheManager.getOperatorCacheInstance().getOperator(report.getId());
+			if(handler==null){
+				return;
+			}
 			// Submit message
 			handler.submitMessage(msg);
 		} catch (MDMPException e) {

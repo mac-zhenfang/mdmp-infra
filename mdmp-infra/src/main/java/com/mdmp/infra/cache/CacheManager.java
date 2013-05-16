@@ -5,6 +5,7 @@ public class CacheManager {
 	static OperatorCache opCache;
 	static {
 		rCache = new ReportCache();
+		opCache = new OperatorCache();
 	}
 
 	public static ReportCache getReportCacheInstance() {
