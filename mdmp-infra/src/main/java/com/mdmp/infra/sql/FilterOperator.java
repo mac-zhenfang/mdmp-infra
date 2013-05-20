@@ -12,10 +12,11 @@ import com.mdmp.infra.message.Message;
 import com.mdmp.infra.operator.JsonMessageOperator;
 import com.mdmp.infra.sql.udf.generic.GenericUDAFEvaluator;
 import com.mdmp.infra.sql.udf.generic.GenericUDAFResolver;
+import com.mdmp.infra.sql.udf.generic.GenericUDFBaseCompare;
 
 public class FilterOperator extends JsonMessageOperator {
 	public static final String AND = "and";
-	static Map<String, FunctionInfo> mFunctions = new LinkedHashMap<String, FunctionInfo>();
+	static Map<String, GenericUDFBaseCompare> mFunctions = new LinkedHashMap<String, GenericUDFBaseCompare>();
 
 	@Override
 	public Message processMessage(JsonMessage message) throws Exception {
@@ -23,11 +24,14 @@ public class FilterOperator extends JsonMessageOperator {
 		if (StringUtils.isEmpty(whereString)) {
 			return message;
 		}
-		for(String k : mFunctions.keySet()){
-			FunctionInfo func = mFunctions.get(k);
-			GenericUDAFResolver resolver = FunctionRegistry.getGenericUDAFResolver(k);
-			GenericUDAFEvaluator evaluator = resolver.getEvaluator(parameters);
-			Object r = evaluator.evaluate(agg);
+		for (String k : mFunctions.keySet()) {
+			GenericUDFBaseCompare func = mFunctions.get(k);
+			/*GenericUDAFResolver resolver = FunctionRegistry.getGenericUDAFResolver(k);
+			GenericUDAFEvaluator evaluator = resolver.getEvaluator(parameters);*/
+			Boolean pass = (Boolean) func.evaluate("");
+			if (!pass) {
+				break;
+			}
 		}
 		return null;
 	}
@@ -44,8 +48,12 @@ public class FilterOperator extends JsonMessageOperator {
 		for (String e : sExp) {
 			if (e.contains(">=")) {
 				String functionName = ">=";
-				FunctionInfo fI = FunctionRegistry.getFunctionInfo(functionName);
-				mFunctions.put(functionName, fI);
+				FunctionInfo fI = FunctionRegistry
+						.getFunctionInfo(functionName);
+				GenericUDFBaseCompare func = null; 
+				String[] args = e.split(functionName);
+				func.initialize(arguments);
+				mFunctions.put(functionName, func);
 			} else if (e.contains("<=")) {
 				para = e.split("<=");
 			} else if (e.contains(">")) {

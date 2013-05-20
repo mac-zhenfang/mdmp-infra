@@ -86,7 +86,7 @@ public class GenericUDAFBridge extends AbstractGenericUDAFResolver {
 
     Class<? extends UDAFEvaluator> udafEvaluator;
 
-    transient ObjectInspector[] parameterOIs;
+    transient Object[] parameterOIs;
     transient Object result;
 
     transient Method iterateMethod;
@@ -97,7 +97,7 @@ public class GenericUDAFBridge extends AbstractGenericUDAFResolver {
     transient ConversionHelper conversionHelper;
 
     @Override
-    public ObjectInspector init(Mode m, ObjectInspector[] parameters) throws MDMPException {
+    public ObjectInspector init(Mode m, Object[] parameters) throws MDMPException {
       super.init(m, parameters);
       parameterOIs = parameters;
 

@@ -19,7 +19,7 @@
 package com.mdmp.infra.sql.udf.generic;
 
 import com.mdmp.common.exception.MDMPException;
-import com.mdmp.infra.sql.udf.generic.GenericUDF.DeferredObject;
+import com.mdmp.infra.message.Message;
 
 /**
  * GenericUDF Class for operation EQUAL.
@@ -31,44 +31,42 @@ public class GenericUDFOPEqual extends GenericUDFBaseCompare {
 	}
 
 	@Override
-	public Object evaluate(DeferredObject[] arguments) throws MDMPException {
-		Object o0, o1;
-		o0 = arguments[0].get();
+	public Object evaluate(Message msg) throws MDMPException {
+		/*Object o0, o1;
+		o0 = arguments[0];
 		if (o0 == null) {
 			return null;
 		}
-		o1 = arguments[1].get();
+		o1 = arguments[1];
 		if (o1 == null) {
+			return null;
+		}*/
+		if(msg == null){
 			return null;
 		}
 
 		switch (compareType) {
-		case COMPARE_TEXT:
-			result = soi0.getPrimitiveWritableObject(o0).equals(
-					soi1.getPrimitiveWritableObject(o1)));
-			break;
 		case COMPARE_INT:
-			result=ioi0.get(o0) == ioi1.get(o1);
+			result= ioi0 == ioi1;
 			break;
 		case COMPARE_LONG:
-			result=loi0.get(o0) == loi1.get(o1);
+			result=loi0== loi1;
 			break;
 		case COMPARE_BYTE:
-			result=byoi0.get(o0) == byoi1.get(o1);
+			result=byoi0== byoi1;
 			break;
 		case COMPARE_BOOL:
-			result=boi0.get(o0) == boi1.get(o1);
+			result=boi0 == boi1;
 			break;
 		case COMPARE_STRING:
-			result=soi0.getPrimitiveJavaObject(o0).equals(
-					soi1.getPrimitiveJavaObject(o1)));
+			result=soi0.equals(soi1);
 			break;
 		case SAME_TYPE:
-			result=ObjectInspectorUtils.compare(o0, argumentOIs[0], o1,
-					argumentOIs[1]) == 0;
+			/*result=ObjectInspectorUtils.compare(o0, argumentOIs[0], o1,
+					argumentOIs[1]) == 0;*/
 			break;
 		default:
-			Object converted_o0 = converter0.convert(o0);
+			/*Object converted_o0 = converter0.convert(o0);
 			if (converted_o0 == null) {
 				return null;
 			}
@@ -77,7 +75,7 @@ public class GenericUDFOPEqual extends GenericUDFBaseCompare {
 				return null;
 			}
 			result=ObjectInspectorUtils.compare(converted_o0, compareOI,
-					converted_o1, compareOI) == 0;
+					converted_o1, compareOI) == 0;*/
 		}
 		return result;
 	}

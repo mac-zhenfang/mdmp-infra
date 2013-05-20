@@ -19,6 +19,7 @@
 package com.mdmp.infra.sql.udf.generic;
 
 import com.mdmp.common.exception.UDFArgumentException;
+import com.mdmp.infra.message.Message;
 
 
 /**
@@ -71,7 +72,7 @@ public abstract class GenericUDF {
    *          ObjectInspectors passed in the initialize call.
    * @return The
    */
-  public abstract Object evaluate(DeferredObject[] arguments)
+  public abstract Object evaluate(Message msg)
       throws Exception;
 
   /**
