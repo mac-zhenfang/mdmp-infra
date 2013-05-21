@@ -5,13 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-//import com.drap.select.Condition;
 import com.mdmp.common.util.StringUtils;
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 import com.mdmp.infra.operator.JsonMessageOperator;
-import com.mdmp.infra.sql.udf.generic.GenericUDAFEvaluator;
-import com.mdmp.infra.sql.udf.generic.GenericUDAFResolver;
+import com.mdmp.infra.sql.args.Argument;
+import com.mdmp.infra.sql.args.ArgumentFactory;
 import com.mdmp.infra.sql.udf.generic.GenericUDFBaseCompare;
 
 public class FilterOperator extends JsonMessageOperator {
@@ -28,7 +27,7 @@ public class FilterOperator extends JsonMessageOperator {
 			GenericUDFBaseCompare func = mFunctions.get(k);
 			/*GenericUDAFResolver resolver = FunctionRegistry.getGenericUDAFResolver(k);
 			GenericUDAFEvaluator evaluator = resolver.getEvaluator(parameters);*/
-			Boolean pass = (Boolean) func.evaluate("");
+			Boolean pass = (Boolean) func.evaluate(message);
 			if (!pass) {
 				break;
 			}
@@ -48,11 +47,15 @@ public class FilterOperator extends JsonMessageOperator {
 		for (String e : sExp) {
 			if (e.contains(">=")) {
 				String functionName = ">=";
-				FunctionInfo fI = FunctionRegistry
-						.getFunctionInfo(functionName);
-				GenericUDFBaseCompare func = null; 
+				FunctionInfo fI = FunctionRegistry.getFunctionInfo(functionName);
+				GenericUDFBaseCompare func = null;
+				List<Argument> arguments =  new ArrayList<Argument>();
 				String[] args = e.split(functionName);
-				func.initialize(arguments);
+				for (String arg : args) {
+					Argument newArg = ArgumentFactory.parseArgument(arg);
+					arguments.add(newArg);
+				}
+				func.initialize(arguments.toArray(new Argument[arguments.size()]));
 				mFunctions.put(functionName, func);
 			} else if (e.contains("<=")) {
 				para = e.split("<=");

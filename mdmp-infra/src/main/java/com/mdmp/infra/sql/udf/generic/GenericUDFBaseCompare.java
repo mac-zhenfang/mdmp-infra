@@ -19,6 +19,12 @@
 package com.mdmp.infra.sql.udf.generic;
 
 import com.mdmp.common.exception.UDFArgumentException;
+import com.mdmp.infra.sql.args.Argument;
+import com.mdmp.infra.sql.args.ArgumentType;
+import com.mdmp.infra.sql.args.PrimitiveDoubleArgument;
+import com.mdmp.infra.sql.args.PrimitiveIntArgument;
+import com.mdmp.infra.sql.args.PrimitiveLongArgument;
+import com.mdmp.infra.sql.args.PrimitiveStringArgument;
 
 /**
  * GenericUDF Base Class for operations.
@@ -40,15 +46,16 @@ public abstract class GenericUDFBaseCompare extends GenericUDF {
 	protected Object compareOI;
 	protected CompareType compareType;
 	// protected Converter converter0, converter1;
-	protected String soi0, soi1;
-	protected Integer ioi0, ioi1;
-	protected Long loi0, loi1;
+	protected PrimitiveStringArgument soi0, soi1;
+	protected PrimitiveIntArgument ioi0, ioi1;
+	protected PrimitiveDoubleArgument doi0, doi1;
+	protected PrimitiveLongArgument loi0, loi1;
 	protected Byte byoi0, byoi1;
 	protected Boolean boi0, boi1;
 	protected boolean result = false;
 
 	@Override
-	public Object initialize(Object[] arguments) throws UDFArgumentException {
+	public Object initialize(Argument[] arguments) throws UDFArgumentException {
 
 		if (arguments.length != 2) {
 			throw new UDFArgumentException(opName + " requires two arguments.");
@@ -64,21 +71,22 @@ public abstract class GenericUDFBaseCompare extends GenericUDF {
 		 * "  is expected to a " + Category.PRIMITIVE.toString().toLowerCase() +
 		 * " type, but " + category.toString().toLowerCase() + " is found"); } }
 		 */
-		if (arguments[0].getClass().isInstance(String.class)
-				&& arguments[1].getClass().isInstance(String.class)) {
-			soi0 = (String) arguments[0];
-			soi1 = (String) arguments[1];
+		if (ArgumentType.STRING == arguments[0].getType()
+				&& ArgumentType.STRING == arguments[1].getType()) {
+			soi0 = (PrimitiveStringArgument) arguments[0];
+			soi1 = (PrimitiveStringArgument) arguments[1];
 			compareType = CompareType.COMPARE_STRING;
-		} else if (arguments[0] instanceof Integer
-				&& arguments[1] instanceof Integer) {
+		} else if (ArgumentType.INT == arguments[0].getType()
+				&& ArgumentType.INT == arguments[1].getType()) {
 			compareType = CompareType.COMPARE_INT;
-			ioi0 = (Integer) arguments[0];
-			ioi1 = (Integer) arguments[1];
-		} else if (arguments[0] instanceof Long && arguments[1] instanceof Long) {
+			ioi0 = (PrimitiveIntArgument) arguments[0];
+			ioi1 = (PrimitiveIntArgument) arguments[1];
+		} else if (ArgumentType.INT == arguments[0].getType()
+				&& ArgumentType.INT == arguments[1].getType()) {
 			compareType = CompareType.COMPARE_LONG;
-			loi0 = (Long) arguments[0];
-			loi1 = (Long) arguments[1];
-		} else if (arguments[0] instanceof Byte && arguments[1] instanceof Byte) {
+			loi0 = (PrimitiveLongArgument) arguments[0];
+			loi1 = (PrimitiveLongArgument) arguments[1];
+		/*} else if (arguments[0] instanceof Byte && arguments[1] instanceof Byte) {
 			compareType = CompareType.COMPARE_BYTE;
 			byoi0 = (Byte) arguments[0];
 			byoi1 = (Byte) arguments[1];
@@ -86,7 +94,7 @@ public abstract class GenericUDFBaseCompare extends GenericUDF {
 				&& arguments[1] instanceof Boolean) {
 			compareType = CompareType.COMPARE_BOOL;
 			boi0 = (Boolean) arguments[0];
-			boi1 = (Boolean) arguments[1];
+			boi1 = (Boolean) arguments[1];*/
 		} else {
 			// TODO type convert
 			/*

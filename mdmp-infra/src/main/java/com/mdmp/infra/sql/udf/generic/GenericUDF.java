@@ -20,6 +20,7 @@ package com.mdmp.infra.sql.udf.generic;
 
 import com.mdmp.common.exception.UDFArgumentException;
 import com.mdmp.infra.message.Message;
+import com.mdmp.infra.sql.args.Argument;
 
 
 /**
@@ -60,7 +61,7 @@ public abstract class GenericUDF {
    *           Thrown when arguments have wrong types, wrong length, etc.
    * @return The ObjectInspector for the return value
    */
-  public abstract Object initialize(Object[] arguments)
+  public abstract Object initialize(Argument[] arguments)
       throws Exception;
 
   /**
