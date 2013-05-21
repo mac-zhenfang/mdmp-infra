@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="com/mdmp/infra/sql/udf/generic/GenericUDFOPAnd.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPEqualOrGreaterThan.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPEqualOrLessThan.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPGreaterThan.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPLessThan.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPNot.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPNotEqual.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPNotNull.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPNull.java|com/mdmp/infra/sql/udf/generic/GenericUDFOPOr.java|com/mdmp/infra/sql/udf/resolver/NumericOpMethodResolver.java|com/drap/select/SelectTest.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

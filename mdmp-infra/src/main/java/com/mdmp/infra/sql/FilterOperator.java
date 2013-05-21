@@ -15,7 +15,7 @@ import com.mdmp.infra.sql.udf.generic.GenericUDFBaseCompare;
 
 public class FilterOperator extends JsonMessageOperator {
 	public static final String AND = "and";
-	static Map<String, GenericUDFBaseCompare> mFunctions = new LinkedHashMap<String, GenericUDFBaseCompare>();
+	static Map<String, GenericUDFBaseCompare> compareFuncList = new LinkedHashMap<String, GenericUDFBaseCompare>();
 
 	@Override
 	public Message processMessage(JsonMessage message) throws Exception {
@@ -23,10 +23,8 @@ public class FilterOperator extends JsonMessageOperator {
 		if (StringUtils.isEmpty(whereString)) {
 			return message;
 		}
-		for (String k : mFunctions.keySet()) {
-			GenericUDFBaseCompare func = mFunctions.get(k);
-			/*GenericUDAFResolver resolver = FunctionRegistry.getGenericUDAFResolver(k);
-			GenericUDAFEvaluator evaluator = resolver.getEvaluator(parameters);*/
+		for (String k : compareFuncList.keySet()) {
+			GenericUDFBaseCompare func = compareFuncList.get(k);
 			Boolean pass = (Boolean) func.evaluate(message);
 			if (!pass) {
 				break;
@@ -37,38 +35,47 @@ public class FilterOperator extends JsonMessageOperator {
 
 	@Override
 	public void init(String logic) {
-		parse(logic);
+		try {
+			parse(logic);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void parse(String exp) {
+	public void parse(String exp) throws InstantiationException,
+			IllegalAccessException {
 		exp = exp.toLowerCase();
 		String[] sExp = exp.split("and");
-		String[] para;
 		for (String e : sExp) {
 			if (e.contains(">=")) {
-				String functionName = ">=";
-				FunctionInfo fI = FunctionRegistry.getFunctionInfo(functionName);
-				GenericUDFBaseCompare func = null;
-				List<Argument> arguments =  new ArrayList<Argument>();
-				String[] args = e.split(functionName);
-				for (String arg : args) {
-					Argument newArg = ArgumentFactory.parseArgument(arg);
-					arguments.add(newArg);
-				}
-				func.initialize(arguments.toArray(new Argument[arguments.size()]));
-				mFunctions.put(functionName, func);
+				parseInternal(">=", e);
 			} else if (e.contains("<=")) {
-				para = e.split("<=");
+				parseInternal(">=", e);
 			} else if (e.contains(">")) {
-				para = e.split(">");
+				parseInternal(">", e);
 			} else if (e.contains("<")) {
-				para = e.split("<");
+				parseInternal("<", e);
 			} else if (e.contains("=")) {
-				para = e.split("=");
+				parseInternal("=", e);
 			} else if (e.contains("!=")) {
-				para = e.split("!=");
+				parseInternal("!=", e);
 			}
 		}
+	}
+	
+	private void parseInternal(String functionName, String e) throws InstantiationException, IllegalAccessException{
+		FunctionInfo fI = FunctionRegistry.getFunctionInfo(functionName);
+		GenericUDFBaseCompare compareFunc = (GenericUDFBaseCompare) fI.getGenericUDF();
+		List<Argument> arguments = new ArrayList<Argument>();
+		String[] args = e.split(functionName);
+		for (String arg : args) {
+			Argument newArg = ArgumentFactory.parseArgument(arg);
+			arguments.add(newArg);
+		}
+		compareFunc.initialize(arguments.toArray(new Argument[arguments.size()]));
+		compareFuncList.put(functionName, compareFunc);
 	}
 
 	/**
@@ -102,5 +109,14 @@ public class FilterOperator extends JsonMessageOperator {
 	 * (!condition.passes(o)) { passedAllConditions = false; break; } } } return
 	 * passedAllConditions; }
 	 */
-
+	public static void main(String[] args) {
+		FilterOperator oper = new FilterOperator();
+		oper.init("age = 15");
+		JsonMessage msg = new JsonMessage("{age:15}");
+		try {
+			oper.processMessage(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

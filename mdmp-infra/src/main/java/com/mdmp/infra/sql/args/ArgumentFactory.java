@@ -6,9 +6,11 @@ public class ArgumentFactory {
 
 	public static final String PATTERN_FLOAT = "[\\d]*(\\.?)[\\d]*";
 	public static final String PATTERN_INT = "[\\d]+";
+	public static final String PATTERN_COLUMN = "[[a-z]|[A-Z]]+";
 	public static final char QUOTATION = '\'';
 	static Pattern patFloat = Pattern.compile(PATTERN_FLOAT);
 	static Pattern patInt = Pattern.compile(PATTERN_INT);
+	static Pattern patChar = Pattern.compile(PATTERN_INT);
 
 	public static Argument parseArgument(String arg) {
 		int length = arg.length();
@@ -33,6 +35,9 @@ public class ArgumentFactory {
 				value = Double.parseDouble(arg);
 				tmpArg = new PrimitiveDoubleArgument();
 			}
+		} else if(isColumn(arg)){
+			tmpArg = new ColumnArgument();
+			tmpArg.setName(arg);
 		}
 		tmpArg.setValue(value);
 		tmpArg.setLength(length);
@@ -51,5 +56,14 @@ public class ArgumentFactory {
 			return false;
 		}
 		return patInt.matcher(str).matches();
+	}
+	
+	public static boolean isColumn(String str) {
+		if (str == null) {
+			return false;
+		}
+		// FIXME Need to get metadata from cache
+		// TODO
+		return patChar.matcher(str).matches();
 	}
 }

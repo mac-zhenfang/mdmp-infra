@@ -21,8 +21,7 @@ public class MongoSink extends BasicSink {
 
 	@Override
 	public void init(String logic) {
-		// TODO Auto-generated method stub
-
-		mongodb.put(msg.getDataSourceId(), msg.getTimeStamp(), msg);
+		// TODO
+		// mongodb.put(msg.getDataSourceId(), msg.getTimeStamp(), msg);
 	}
 }

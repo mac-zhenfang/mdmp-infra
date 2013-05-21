@@ -47,19 +47,19 @@ public class GenericUDFOPEqual extends GenericUDFBaseCompare {
 
 		switch (compareType) {
 		case COMPARE_INT:
-			result= ioi0 == ioi1;
+			result = ioi0.getValue(msg) == ioi1.getValue(msg);
 			break;
 		case COMPARE_LONG:
-			result=loi0== loi1;
+			result = loi0.getValue(msg) == loi1.getValue(msg);
 			break;
-		case COMPARE_BYTE:
-			result=byoi0== byoi1;
+		/*case COMPARE_BYTE:
+			result=byoi0.getValue()== byoi1.getValue();
 			break;
 		case COMPARE_BOOL:
-			result=boi0 == boi1;
-			break;
+			result=boi0.getValue() == boi1.getValue();
+			break;*/
 		case COMPARE_STRING:
-			result=soi0.equals(soi1);
+			result = soi0.getValue(msg).equals(soi1.getValue(msg));
 			break;
 		case SAME_TYPE:
 			/*result=ObjectInspectorUtils.compare(o0, argumentOIs[0], o1,

@@ -13,7 +13,7 @@ public class PrimitiveIntArgument extends AbstractArgument {
 
 	@Override
 	public Object getValue(Message msg) {
-		if (msg.getType() == Message.MSG_JSON) {
+		if (getName() != null && msg.getType() == Message.MSG_JSON) {
 			JsonMessage jmsg = (JsonMessage) msg;
 			return jmsg.getValue(getName());
 		}

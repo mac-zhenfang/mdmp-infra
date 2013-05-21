@@ -28,15 +28,15 @@ import com.mdmp.infra.sql.udf.UDFOPPlus;
 import com.mdmp.infra.sql.udf.generic.GenericUDAFEvaluator;
 import com.mdmp.infra.sql.udf.generic.GenericUDAFResolver;
 import com.mdmp.infra.sql.udf.generic.GenericUDF;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPAnd;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqual;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrGreaterThan;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrLessThan;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPGreaterThan;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPLessThan;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPNot;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPNotEqual;
-import com.mdmp.infra.sql.udf.generic.GenericUDFOPOr;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPAnd;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqual;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrGreaterThan;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrLessThan;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPGreaterThan;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPLessThan;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPNot;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPNotEqual;
+//import com.mdmp.infra.sql.udf.generic.GenericUDFOPOr;
 
 public class FunctionRegistry {
 	private static Log LOG = LogFactory.getLog("org.apache.hadoop.hive.ql.exec.FunctionRegistry");
@@ -159,18 +159,18 @@ public class FunctionRegistry {
 //
 //	    registerGenericUDF("if", GenericUDFIf.class);
 //	    registerGenericUDF("in", GenericUDFIn.class);
-	    registerGenericUDF("and", GenericUDFOPAnd.class);
-	    registerGenericUDF("or", GenericUDFOPOr.class);
+//	    registerGenericUDF("and", GenericUDFOPAnd.class);
+//	    registerGenericUDF("or", GenericUDFOPOr.class);
 	    registerGenericUDF("=", GenericUDFOPEqual.class);
-	    registerGenericUDF("==", GenericUDFOPEqual.class);
-	    registerGenericUDF("!=", GenericUDFOPNotEqual.class);
-	    registerGenericUDF("<>", GenericUDFOPNotEqual.class);
-	    registerGenericUDF("<", GenericUDFOPLessThan.class);
-	    registerGenericUDF("<=", GenericUDFOPEqualOrLessThan.class);
-	    registerGenericUDF(">", GenericUDFOPGreaterThan.class);
-	    registerGenericUDF(">=", GenericUDFOPEqualOrGreaterThan.class);
-	    registerGenericUDF("not", GenericUDFOPNot.class);
-	    registerGenericUDF("!", GenericUDFOPNot.class);
+//	    registerGenericUDF("==", GenericUDFOPEqual.class);
+//	    registerGenericUDF("!=", GenericUDFOPNotEqual.class);
+//	    registerGenericUDF("<>", GenericUDFOPNotEqual.class);
+//	    registerGenericUDF("<", GenericUDFOPLessThan.class);
+//	    registerGenericUDF("<=", GenericUDFOPEqualOrLessThan.class);
+//	    registerGenericUDF(">", GenericUDFOPGreaterThan.class);
+//	    registerGenericUDF(">=", GenericUDFOPEqualOrGreaterThan.class);
+//	    registerGenericUDF("not", GenericUDFOPNot.class);
+//	    registerGenericUDF("!", GenericUDFOPNot.class);
 
 
 	    // Aliases for Java Class Names
