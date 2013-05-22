@@ -12,14 +12,21 @@ public class FunctionInfo {
 	String name;
 	Class<?  extends UDF> udfClass;
 	Class<?  extends GenericUDF> genericUdfClass;
+	GenericUDF gUDF;
 	List<Object> paraType;
 	
 	public FunctionInfo(boolean isNative2, String functionName,
 			GenericUDF newInstance) {
-		
+		this.isNative = isNative2;
+		this.gUDF = newInstance;
 	}
 
 	public FunctionInfo(String functionName, GenericUDFBridge genericUDFBridge) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public FunctionInfo(boolean isNative2, String displayName,
+			GenericUDFBridge genericUDFBridge) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,7 +34,12 @@ public class FunctionInfo {
 		return isNative;
 	}
 
-	public GenericUDF getGenericUDF() throws InstantiationException, IllegalAccessException {
-		return genericUdfClass.newInstance();
+	public GenericUDF getGenericUDF(){
+		return gUDF;
+	}
+
+	public Class<?> getFunctionClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

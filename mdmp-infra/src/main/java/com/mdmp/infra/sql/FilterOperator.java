@@ -19,16 +19,20 @@ public class FilterOperator extends JsonMessageOperator {
 
 	@Override
 	public Message processMessage(JsonMessage message) throws Exception {
-		String whereString = ((String) message.getValue("where")).toLowerCase();
-		if (StringUtils.isEmpty(whereString)) {
-			return message;
-		}
+//		String whereString = ((String) message.getValue("where")).toLowerCase();
+//		if (StringUtils.isEmpty(whereString)) {
+//			return message;
+//		}
+		Boolean pass = true;
 		for (String k : compareFuncList.keySet()) {
 			GenericUDFBaseCompare func = compareFuncList.get(k);
-			Boolean pass = (Boolean) func.evaluate(message);
+			pass = (Boolean) func.evaluate(message);
 			if (!pass) {
 				break;
 			}
+		}
+		if(pass){
+			return message;
 		}
 		return null;
 	}
@@ -112,7 +116,7 @@ public class FilterOperator extends JsonMessageOperator {
 	public static void main(String[] args) {
 		FilterOperator oper = new FilterOperator();
 		oper.init("age = 15");
-		JsonMessage msg = new JsonMessage("{age:15}");
+		JsonMessage msg = new JsonMessage("001", "{age:15}");
 		try {
 			oper.processMessage(msg);
 		} catch (Exception e) {

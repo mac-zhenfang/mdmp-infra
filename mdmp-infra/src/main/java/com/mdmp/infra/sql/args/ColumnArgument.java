@@ -5,6 +5,7 @@ import com.mdmp.infra.message.Message;
 
 public class ColumnArgument extends AbstractArgument {
 	private long _value;
+
 	@Override
 	public Object getValue() {
 		return _value;
@@ -21,12 +22,14 @@ public class ColumnArgument extends AbstractArgument {
 
 	@Override
 	public void setValue(Object value) {
-		_value = (Long) value;
+		if (value != null) {
+			_value = (Long) value;
+		}
 	}
 
 	@Override
 	public ArgumentType getType() {
-		return ArgumentType.INT;
+		return ArgumentType.COLUMN;
 	}
 
 }

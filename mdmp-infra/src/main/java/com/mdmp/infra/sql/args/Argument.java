@@ -3,6 +3,7 @@ package com.mdmp.infra.sql.args;
 import com.mdmp.infra.message.Message;
 
 public interface Argument {
+	public boolean isColumn();
 	
 	public int getLength();
 	
@@ -19,4 +20,6 @@ public interface Argument {
 	public void setValue(Object value);
 	
 	public ArgumentType getType();
+	
+	public void setColumn(boolean isColumn);
 }

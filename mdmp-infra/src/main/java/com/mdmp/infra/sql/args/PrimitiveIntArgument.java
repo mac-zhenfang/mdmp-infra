@@ -13,8 +13,8 @@ public class PrimitiveIntArgument extends AbstractArgument {
 
 	@Override
 	public Object getValue(Message msg) {
-		if (getName() != null && msg.getType() == Message.MSG_JSON) {
-			JsonMessage jmsg = (JsonMessage) msg;
+		if (isColumn() && getName() != null && msg.getType() == Message.MSG_JSON) {
+			JsonMessage jmsg = (JsonMessage)msg;
 			return jmsg.getValue(getName());
 		}
 		return _value;
@@ -22,6 +22,9 @@ public class PrimitiveIntArgument extends AbstractArgument {
 
 	@Override
 	public void setValue(Object value) {
+		if(value == null || !(value instanceof Integer)){
+			return;
+		}
 		_value = (Integer) value;
 	}
 

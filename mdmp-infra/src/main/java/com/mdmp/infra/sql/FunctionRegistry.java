@@ -3,7 +3,6 @@ package com.mdmp.infra.sql;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -20,23 +19,14 @@ import org.apache.commons.logging.LogFactory;
 import com.mdmp.common.exception.MDMPException;
 import com.mdmp.common.exception.UDFArgumentException;
 import com.mdmp.infra.sql.udf.UDF;
-import com.mdmp.infra.sql.udf.UDFLike;
 import com.mdmp.infra.sql.udf.UDFOPDivide;
 import com.mdmp.infra.sql.udf.UDFOPMinus;
 import com.mdmp.infra.sql.udf.UDFOPMultiply;
 import com.mdmp.infra.sql.udf.UDFOPPlus;
-import com.mdmp.infra.sql.udf.generic.GenericUDAFEvaluator;
-import com.mdmp.infra.sql.udf.generic.GenericUDAFResolver;
 import com.mdmp.infra.sql.udf.generic.GenericUDF;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPAnd;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqual;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrGreaterThan;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqualOrLessThan;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPGreaterThan;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPLessThan;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPNot;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPNotEqual;
-//import com.mdmp.infra.sql.udf.generic.GenericUDFOPOr;
+import com.mdmp.infra.sql.udf.generic.GenericUDFBridge;
+import com.mdmp.infra.sql.udf.generic.GenericUDFOPEqual;
+import com.mdmp.infra.util.ReflectionUtils;
 
 public class FunctionRegistry {
 	private static Log LOG = LogFactory.getLog("org.apache.hadoop.hive.ql.exec.FunctionRegistry");
@@ -295,7 +285,7 @@ public class FunctionRegistry {
 	      Class<? extends GenericUDF> genericUDFClass) {
 	    if (GenericUDF.class.isAssignableFrom(genericUDFClass)) {
 	      FunctionInfo fI = new FunctionInfo(isNative, functionName,
-	          (GenericUDF) ReflectionUtils.newInstance(genericUDFClass, null));
+	          (GenericUDF) ReflectionUtils.newInstance(genericUDFClass));
 	      mFunctions.put(functionName.toLowerCase(), fI);
 	    } else {
 	      throw new RuntimeException("Registering GenericUDF Class "
@@ -303,7 +293,7 @@ public class FunctionRegistry {
 	    }
 	  }
 
-	  public static void registerTemporaryGenericUDTF(String functionName,
+	  /*public static void registerTemporaryGenericUDTF(String functionName,
 	      Class<? extends GenericUDTF> genericUDTFClass) {
 	    registerGenericUDTF(false, functionName, genericUDTFClass);
 	  }
@@ -317,13 +307,13 @@ public class FunctionRegistry {
 	      Class<? extends GenericUDTF> genericUDTFClass) {
 	    if (GenericUDTF.class.isAssignableFrom(genericUDTFClass)) {
 	      FunctionInfo fI = new FunctionInfo(isNative, functionName,
-	          (GenericUDTF) ReflectionUtils.newInstance(genericUDTFClass, null));
+	          (GenericUDTF) ReflectionUtils.newInstance(genericUDTFClass));
 	      mFunctions.put(functionName.toLowerCase(), fI);
 	    } else {
 	      throw new RuntimeException("Registering GenericUDTF Class "
 	          + genericUDTFClass + " which does not extend " + GenericUDTF.class);
 	    }
-	  }
+	  }*/
 
 	  public static FunctionInfo getFunctionInfo(String functionName) {
 	    return mFunctions.get(functionName.toLowerCase());
@@ -395,7 +385,7 @@ public class FunctionRegistry {
 	  static Map<TypeInfo, Integer> numericTypes = new HashMap<TypeInfo, Integer>();
 	  static List<TypeInfo> numericTypeList = new ArrayList<TypeInfo>();
 
-	  static void registerNumericType(String typeName, int level) {
+	  /*static void registerNumericType(String typeName, int level) {
 	    TypeInfo t = TypeInfoFactory.getPrimitiveTypeInfo(typeName);
 	    numericTypeList.add(t);
 	    numericTypes.put(t, level);
@@ -409,7 +399,7 @@ public class FunctionRegistry {
 	    registerNumericType(Constants.FLOAT_TYPE_NAME, 5);
 	    registerNumericType(Constants.DOUBLE_TYPE_NAME, 6);
 	    registerNumericType(Constants.STRING_TYPE_NAME, 7);
-	  }
+	  }*/
 
 	  /**
 	   * Find a common class that objects of both TypeInfo a and TypeInfo b can
@@ -420,7 +410,7 @@ public class FunctionRegistry {
 	   *
 	   * @return null if no common class could be found.
 	   */
-	  public static TypeInfo getCommonClassForComparison(TypeInfo a, TypeInfo b) {
+	  /*public static TypeInfo getCommonClassForComparison(TypeInfo a, TypeInfo b) {
 	    // If same return one of them
 	    if (a.equals(b)) {
 	      return a;
@@ -433,7 +423,7 @@ public class FunctionRegistry {
 	      }
 	    }
 	    return null;
-	  }
+	  }*/
 
 	  /**
 	   * Find a common class that objects of both TypeInfo a and TypeInfo b can
@@ -457,7 +447,7 @@ public class FunctionRegistry {
 	   * Returns whether it is possible to implicitly convert an object of Class
 	   * from to Class to.
 	   */
-	  public static boolean implicitConvertable(TypeInfo from, TypeInfo to) {
+	  /*public static boolean implicitConvertable(TypeInfo from, TypeInfo to) {
 	    if (from.equals(to)) {
 	      return true;
 	    }
@@ -482,7 +472,7 @@ public class FunctionRegistry {
 	      return false;
 	    }
 	    return true;
-	  }
+	  }*/
 
 	  /**
 	   * Get the GenericUDAF evaluator for the name and argumentClasses.
@@ -492,7 +482,7 @@ public class FunctionRegistry {
 	   * @param argumentTypeInfos
 	   * @return The UDAF evaluator
 	   */
-	  @SuppressWarnings("deprecation")
+	  /*@SuppressWarnings("deprecation")
 	  public static GenericUDAFEvaluator getGenericUDAFEvaluator(String name,
 	      List<TypeInfo> argumentTypeInfos, boolean isDistinct,
 	      boolean isAllColumns) throws SemanticException {
@@ -518,7 +508,7 @@ public class FunctionRegistry {
 	      udafEvaluator = udafResolver.getEvaluator(parameters);
 	    }
 	    return udafEvaluator;
-	  }
+	  }*/
 
 	  /**
 	   * This method is shared between UDFRegistry and UDAFRegistry. methodName will
@@ -526,7 +516,7 @@ public class FunctionRegistry {
 	   * for UDAFRegistry.
 	   * @throws UDFArgumentException
 	   */
-	  public static <T> Method getMethodInternal(Class<? extends T> udfClass,
+	  /*public static <T> Method getMethodInternal(Class<? extends T> udfClass,
 	      String methodName, boolean exact, List<TypeInfo> argumentClasses)
 	      throws UDFArgumentException {
 
@@ -539,9 +529,9 @@ public class FunctionRegistry {
 	    }
 
 	    return getMethodInternal(udfClass, mlist, exact, argumentClasses);
-	  }
+	  }*/
 
-	  public static void registerTemporaryGenericUDAF(String functionName,
+	  /*public static void registerTemporaryGenericUDAF(String functionName,
 	      GenericUDAFResolver genericUDAFResolver) {
 	    registerGenericUDAF(false, functionName, genericUDAFResolver);
 	  }
@@ -549,9 +539,9 @@ public class FunctionRegistry {
 	  static void registerGenericUDAF(String functionName,
 	      GenericUDAFResolver genericUDAFResolver) {
 	    registerGenericUDAF(true, functionName, genericUDAFResolver);
-	  }
+	  }*/
 
-	  public static void registerGenericUDAF(boolean isNative, String functionName,
+	  /*public static void registerGenericUDAF(boolean isNative, String functionName,
 	      GenericUDAFResolver genericUDAFResolver) {
 	    mFunctions.put(functionName.toLowerCase(), new FunctionInfo(isNative,
 	        functionName.toLowerCase(), genericUDAFResolver));
@@ -570,8 +560,8 @@ public class FunctionRegistry {
 	      Class<? extends UDAF> udafClass) {
 	    mFunctions.put(functionName.toLowerCase(), new FunctionInfo(isNative,
 	        functionName.toLowerCase(), new GenericUDAFBridge(
-	        (UDAF) ReflectionUtils.newInstance(udafClass, null))));
-	  }
+	        (UDAF) ReflectionUtils.newInstance(udafClass))));
+	  }*/
 
 	  public static void unregisterTemporaryUDF(String functionName) throws MDMPException {
 	    FunctionInfo fi = mFunctions.get(functionName.toLowerCase());
@@ -585,7 +575,7 @@ public class FunctionRegistry {
 	    }
 	  }
 
-	  public static GenericUDAFResolver getGenericUDAFResolver(String functionName) {
+	  /*public static GenericUDAFResolver getGenericUDAFResolver(String functionName) {
 	    if (LOG.isDebugEnabled()) {
 	      LOG.debug("Looking up GenericUDAF: " + functionName);
 	    }
@@ -595,7 +585,7 @@ public class FunctionRegistry {
 	    }
 	    GenericUDAFResolver result = finfo.getGenericUDAFResolver();
 	    return result;
-	  }
+	  }*/
 
 	  public static Object invoke(Method m, Object thisObject, Object... arguments)
 	      throws MDMPException {
@@ -636,7 +626,7 @@ public class FunctionRegistry {
 	   * Returns -1 if passed does not match accepted. Otherwise return the cost
 	   * (usually 0 for no conversion and 1 for conversion).
 	   */
-	  public static int matchCost(TypeInfo argumentPassed,
+	  /*public static int matchCost(TypeInfo argumentPassed,
 	      TypeInfo argumentAccepted, boolean exact) {
 	    if (argumentAccepted.equals(argumentPassed)) {
 	      // matches
@@ -684,7 +674,7 @@ public class FunctionRegistry {
 	    }
 
 	    return -1;
-	  }
+	  }*/
 
 	  /**
 	   * Gets the closest matching method corresponding to the argument list from a
@@ -698,7 +688,7 @@ public class FunctionRegistry {
 	   *          The classes for the argument.
 	   * @return The matching method.
 	   */
-	  public static Method getMethodInternal(Class<?> udfClass, List<Method> mlist, boolean exact,
+	  /*public static Method getMethodInternal(Class<?> udfClass, List<Method> mlist, boolean exact,
 	      List<TypeInfo> argumentsPassed) throws UDFArgumentException {
 
 	    // result
@@ -761,27 +751,27 @@ public class FunctionRegistry {
 	      throw new AmbiguousMethodException(udfClass, argumentsPassed, mlist);
 	    }
 	    return udfMethods.get(0);
-	  }
+	  }*/
 
 	  /**
 	   * A shortcut to get the "index" GenericUDF. This is used for getting elements
 	   * out of array and getting values out of map.
 	   */
-	  public static GenericUDF getGenericUDFForIndex() {
+	  /*public static GenericUDF getGenericUDFForIndex() {
 	    return FunctionRegistry.getFunctionInfo("index").getGenericUDF();
-	  }
+	  }*/
 
 	  /**
 	   * A shortcut to get the "and" GenericUDF.
 	   */
-	  public static GenericUDF getGenericUDFForAnd() {
+	  /*public static GenericUDF getGenericUDFForAnd() {
 	    return FunctionRegistry.getFunctionInfo("and").getGenericUDF();
-	  }
+	  }*/
 
 	  /**
 	   * Create a copy of an existing GenericUDF.
 	   */
-	  public static GenericUDF cloneGenericUDF(GenericUDF genericUDF) {
+	 /* public static GenericUDF cloneGenericUDF(GenericUDF genericUDF) {
 	    if (null == genericUDF) {
 	      return null;
 	    }
@@ -792,38 +782,37 @@ public class FunctionRegistry {
 	          bridge.getUdfClass());
 	    }
 
-	    return (GenericUDF) ReflectionUtils
-	        .newInstance(genericUDF.getClass(), null);
+	    return (GenericUDF) ReflectionUtils.newInstance(genericUDF.getClass());
 	  }
-
+*/
 	  /**
 	   * Create a copy of an existing GenericUDTF.
 	   */
-	  public static GenericUDTF cloneGenericUDTF(GenericUDTF genericUDTF) {
+	  /*public static GenericUDTF cloneGenericUDTF(GenericUDTF genericUDTF) {
 	    if (null == genericUDTF) {
 	      return null;
 	    }
 	    return (GenericUDTF) ReflectionUtils.newInstance(genericUDTF.getClass(),
 	        null);
-	  }
+	  }*/
 
 	  /**
 	   * Get the UDF class from an exprNodeDesc. Returns null if the exprNodeDesc
 	   * does not contain a UDF class.
 	   */
-	  private static Class<? extends GenericUDF> getGenericUDFClassFromExprDesc(ExprNodeDesc desc) {
+	  /*private static Class<? extends GenericUDF> getGenericUDFClassFromExprDesc(ExprNodeDesc desc) {
 	    if (!(desc instanceof ExprNodeGenericFuncDesc)) {
 	      return null;
 	    }
 	    ExprNodeGenericFuncDesc genericFuncDesc = (ExprNodeGenericFuncDesc) desc;
 	    return genericFuncDesc.getGenericUDF().getClass();
-	  }
+	  }*/
 
 	  /**
 	   * Get the UDF class from an exprNodeDesc. Returns null if the exprNodeDesc
 	   * does not contain a UDF class.
 	   */
-	  private static Class<? extends UDF> getUDFClassFromExprDesc(ExprNodeDesc desc) {
+	  /*private static Class<? extends UDF> getUDFClassFromExprDesc(ExprNodeDesc desc) {
 	    if (!(desc instanceof ExprNodeGenericFuncDesc)) {
 	      return null;
 	    }
@@ -834,12 +823,12 @@ public class FunctionRegistry {
 	    GenericUDFBridge bridge = (GenericUDFBridge) (genericFuncDesc
 	        .getGenericUDF());
 	    return bridge.getUdfClass();
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether a GenericUDF is deterministic or not.
 	   */
-	  public static boolean isDeterministic(GenericUDF genericUDF) {
+	  /*public static boolean isDeterministic(GenericUDF genericUDF) {
 	    UDFType genericUDFType = genericUDF.getClass().getAnnotation(UDFType.class);
 	    if (genericUDFType != null && genericUDFType.deterministic() == false) {
 	      return false;
@@ -854,46 +843,46 @@ public class FunctionRegistry {
 	    }
 
 	    return true;
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether the exprNodeDesc is a node of "and", "or", "not".
 	   */
-	  public static boolean isOpAndOrNot(ExprNodeDesc desc) {
+	  /*public static boolean isOpAndOrNot(ExprNodeDesc desc) {
 	    Class<? extends GenericUDF> genericUdfClass = getGenericUDFClassFromExprDesc(desc);
 	    return GenericUDFOPAnd.class == genericUdfClass
 	        || GenericUDFOPOr.class == genericUdfClass
 	        || GenericUDFOPNot.class == genericUdfClass;
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether the exprNodeDesc is a node of "and".
 	   */
-	  public static boolean isOpAnd(ExprNodeDesc desc) {
+	  /*public static boolean isOpAnd(ExprNodeDesc desc) {
 	    return GenericUDFOPAnd.class == getGenericUDFClassFromExprDesc(desc);
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether the exprNodeDesc is a node of "or".
 	   */
-	  public static boolean isOpOr(ExprNodeDesc desc) {
+	  /*public static boolean isOpOr(ExprNodeDesc desc) {
 	    return GenericUDFOPOr.class == getGenericUDFClassFromExprDesc(desc);
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether the exprNodeDesc is a node of "not".
 	   */
-	  public static boolean isOpNot(ExprNodeDesc desc) {
+	  /*public static boolean isOpNot(ExprNodeDesc desc) {
 	    return GenericUDFOPNot.class == getGenericUDFClassFromExprDesc(desc);
-	  }
+	  }*/
 
 	  /**
 	   * Returns whether the exprNodeDesc is a node of "positive".
 	   */
-	  public static boolean isOpPositive(ExprNodeDesc desc) {
+	  /*public static boolean isOpPositive(ExprNodeDesc desc) {
 	    Class<? extends UDF> udfClass = getUDFClassFromExprDesc(desc);
 	    return UDFOPPositive.class == udfClass;
-	  }
+	  }*/
 
 	  private FunctionRegistry() {
 	    // prevent instantiation

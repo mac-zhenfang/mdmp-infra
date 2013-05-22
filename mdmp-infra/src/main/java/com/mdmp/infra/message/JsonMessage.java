@@ -19,6 +19,9 @@ public class JsonMessage extends TextMessage {
 	}
 
 	public Object getValue(Object key) {
+		if(_json == null){
+			
+		}
 		return _json.get(key);
 	}
 
@@ -42,5 +45,9 @@ public class JsonMessage extends TextMessage {
 	@Override
 	public String getText() {
 		return _json.toString();
+	}
+
+	public static JsonMessage newInstance(Message msg) {
+		return new JsonMessage(msg.getDataSourceId(), "");
 	}
 }

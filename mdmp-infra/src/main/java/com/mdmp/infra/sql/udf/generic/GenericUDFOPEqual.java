@@ -47,7 +47,8 @@ public class GenericUDFOPEqual extends GenericUDFBaseCompare {
 
 		switch (compareType) {
 		case COMPARE_INT:
-			result = ioi0.getValue(msg) == ioi1.getValue(msg);
+			//result = ioi0.getValue(msg) == ioi1.getValue(msg);
+			result = ioi0.getValue(msg).equals(ioi1.getValue(msg));
 			break;
 		case COMPARE_LONG:
 			result = loi0.getValue(msg) == loi1.getValue(msg);
