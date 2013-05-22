@@ -15,10 +15,15 @@ public class ArgumentFactory {
 	static Pattern patFloat = Pattern.compile(PATTERN_FLOAT);
 	static Pattern patInt = Pattern.compile(PATTERN_INT);
 	static Pattern patChar = Pattern.compile(PATTERN_COLUMN);
-	static Map<String, Class<? extends Argument>> argumentsMap = new HashMap();
-	static{
+	static Map<String, Class<? extends Argument>> argumentsMap = new HashMap<String, Class<? extends Argument>>();
+	static {
 		argumentsMap.put("int", PrimitiveIntArgument.class);
+		argumentsMap.put("long", PrimitiveLongArgument.class);
+		argumentsMap.put("string", PrimitiveStringArgument.class);
+		argumentsMap.put("float", PrimitiveFloatArgument.class);
+		argumentsMap.put("dbouble", PrimitiveDoubleArgument.class);
 	}
+
 	public static Argument parseArgument(String arg) {
 		arg = arg.trim();
 		int length = arg.length();
@@ -43,7 +48,7 @@ public class ArgumentFactory {
 				value = Double.parseDouble(arg);
 				tmpArg = new PrimitiveDoubleArgument();
 			}
-		} else if(isColumn(arg)){
+		} else if (isColumn(arg)) {
 			tmpArg = getColumnArgument(arg);
 			tmpArg.setColumn(true);
 			tmpArg.setName(arg);
@@ -56,7 +61,7 @@ public class ArgumentFactory {
 	private static Argument getColumnArgument(String columnName) {
 		// TODO Get column type from cache
 		String type = "int";
-		
+
 		//
 		return ReflectionUtils.newInstance(argumentsMap.get(type));
 	}
@@ -74,7 +79,7 @@ public class ArgumentFactory {
 		}
 		return patInt.matcher(str).matches();
 	}
-	
+
 	public static boolean isColumn(String str) {
 		if (str == null) {
 			return false;
