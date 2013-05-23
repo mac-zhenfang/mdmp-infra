@@ -50,4 +50,9 @@ public class JsonMessage extends TextMessage {
 	public static JsonMessage newInstance(Message msg) {
 		return new JsonMessage(msg.getDataSourceId(), "");
 	}
+
+	@Override
+	public String toString() {
+		return "JsonMessage [" + _json + "]";
+	}
 }
