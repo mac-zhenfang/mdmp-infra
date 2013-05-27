@@ -1,5 +1,6 @@
 package com.mdmp.infra.rule;
 
+<<<<<<< HEAD
 import java.io.OutputStream;
 
 import com.googlecode.aviator.AviatorEvaluator;
@@ -29,5 +30,4 @@ public class TestEL {
 		//float result =  (Float) AviatorEvaluator.execute("5+count(30)+cos(60)");
 		//System.out.println(AviatorEvaluator.execute("now()"));
 		System.out.println(AviatorEvaluator.execute("string.contains('aaaab','aa') "));
-	}
 }
