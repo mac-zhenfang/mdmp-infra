@@ -29,6 +29,7 @@ public class TestEL {
 		//float result =  (Float) AviatorEvaluator.execute("5+count(30)+cos(60)");
 		//System.out.println(AviatorEvaluator.execute("now()"));
 		//System.out.println(AviatorEvaluator.execute("string.contains('aaaab','aa') "));
+		//System.out.println(AviatorEvaluator.execute("string.contains('aaaab',string.substring('aabb',0,2))"));
 		System.out.println(AviatorEvaluator.execute("string.contains('aaaab',string.substring('aabb',0,2))"));
 	}
 }
