@@ -3,6 +3,7 @@ package com.mdmp.infra.sql.parser;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.mdmp.common.exception.MDMPException;
 import com.mdmp.infra.sql.parser.Token.TokenType;
 
 
@@ -36,14 +37,13 @@ public class ExpressionParser {
    private boolean inPattern = false;
 
 
-   public ExpressionParser(ExpressionLexer lexer, CodeGenerator codeGenerator) {
+   public ExpressionParser(ExpressionLexer lexer) {
        super();
        this.lexer = lexer;
        this.lookhead = this.lexer.scan();
        if (this.lookhead == null) {
            throw new MDMPException("Blank expression");
        }
-       this.codeGenerator = codeGenerator;
    }
 
 
@@ -54,13 +54,13 @@ public class ExpressionParser {
        }
        if (this.expectLexeme("?")) {
            this.move(true);
-           this.codeGenerator.onTernaryBoolean(this.lookhead);
+           //this.codeGenerator.onTernaryBoolean(this.lookhead);
            this.ternary();
            if (this.expectLexeme(":")) {
                this.move(true);
-               this.codeGenerator.onTernaryLeft(this.lookhead);
+               //this.codeGenerator.onTernaryLeft(this.lookhead);
                this.ternary();
-               this.codeGenerator.onTernaryRight(this.lookhead);
+               //this.codeGenerator.onTernaryRight(this.lookhead);
            }
            else {
                this.reportSyntaxError("expect ':'");
@@ -95,12 +95,12 @@ public class ExpressionParser {
        this.and();
        while (true) {
            if (this.isJoinToken()) {
-               this.codeGenerator.onJoinLeft(this.lookhead);
+               //this.codeGenerator.onJoinLeft(this.lookhead);
                this.move(true);
                if (this.isJoinToken()) {
                    this.move(true);
                    this.and();
-                   this.codeGenerator.onJoinRight(this.lookhead);
+                   //this.codeGenerator.onJoinRight(this.lookhead);
                }
                else {
                    this.reportSyntaxError("expect '|'");
@@ -148,7 +148,7 @@ public class ExpressionParser {
                    break;
                }
                this.xor();
-               this.codeGenerator.onBitOr(this.lookhead);
+               //this.codeGenerator.onBitOr(this.lookhead);
            }
            else {
                break;
@@ -163,7 +163,7 @@ public class ExpressionParser {
            if (this.expectLexeme("^")) {
                this.move(true);
                this.bitAnd();
-               this.codeGenerator.onBitXor(this.lookhead);
+               //this.codeGenerator.onBitXor(this.lookhead);
            }
            else {
                break;
@@ -182,7 +182,7 @@ public class ExpressionParser {
                    break;
                }
                this.equality();
-               this.codeGenerator.onBitAnd(this.lookhead);
+               //this.codeGenerator.onBitAnd(this.lookhead);
            }
            else {
                break;
@@ -195,12 +195,12 @@ public class ExpressionParser {
        this.bitOr();
        while (true) {
            if (this.isAndToken()) {
-               this.codeGenerator.onAndLeft(this.lookhead);
+               //this.codeGenerator.onAndLeft(this.lookhead);
                this.move(true);
                if (this.isAndToken()) {
                    this.move(true);
                    this.bitOr();
-                   this.codeGenerator.onAndRight(this.lookhead);
+                   //this.codeGenerator.onAndRight(this.lookhead);
                }
                else {
                    this.reportSyntaxError("expect '&'");
@@ -222,13 +222,13 @@ public class ExpressionParser {
                if (this.expectLexeme("=")) {
                    this.move(true);
                    this.rel();
-                   this.codeGenerator.onEq(this.lookhead);
+                   //this.codeGenerator.onEq(this.lookhead);
                }
                else if (this.expectLexeme("~")) {
                    // It is a regular expression
                    this.move(true);
                    this.rel();
-                   this.codeGenerator.onMatch(this.lookhead);
+                   //this.codeGenerator.onMatch(this.lookhead);
                }
                else {
                    this.reportSyntaxError("Aviator doesn't support assignment");
@@ -239,7 +239,7 @@ public class ExpressionParser {
                if (this.expectLexeme("=")) {
                    this.move(true);
                    this.rel();
-                   this.codeGenerator.onNeq(this.lookhead);
+                   //this.codeGenerator.onNeq(this.lookhead);
                }
                else {
                    this.reportSyntaxError("expect '='");
@@ -260,11 +260,11 @@ public class ExpressionParser {
                if (this.expectLexeme("=")) {
                    this.move(true);
                    this.expr();
-                   this.codeGenerator.onLe(this.lookhead);
+                   //this.codeGenerator.onLe(this.lookhead);
                }
                else {
                    this.expr();
-                   this.codeGenerator.onLt(this.lookhead);
+                   //this.codeGenerator.onLt(this.lookhead);
                }
            }
            else if (this.expectLexeme(">")) {
@@ -272,11 +272,11 @@ public class ExpressionParser {
                if (this.expectLexeme("=")) {
                    this.move(true);
                    this.expr();
-                   this.codeGenerator.onGe(this.lookhead);
+                   //this.codeGenerator.onGe(this.lookhead);
                }
                else {
                    this.expr();
-                   this.codeGenerator.onGt(this.lookhead);
+                   //this.codeGenerator.onGt(this.lookhead);
                }
            }
            else {
@@ -294,7 +294,7 @@ public class ExpressionParser {
                if (this.expectLexeme("<")) {
                    this.move(true);
                    this.expr();
-                   this.codeGenerator.onShiftLeft(this.lookhead);
+                   //this.codeGenerator.onShiftLeft(this.lookhead);
                }
                else {
                    this.back();
@@ -308,11 +308,11 @@ public class ExpressionParser {
                    if (this.expectLexeme(">")) {
                        this.move(true);
                        this.expr();
-                       this.codeGenerator.onUnsignedShiftRight(this.lookhead);
+                       //this.codeGenerator.onUnsignedShiftRight(this.lookhead);
                    }
                    else {
                        this.expr();
-                       this.codeGenerator.onShiftRight(this.lookhead);
+                       //this.codeGenerator.onShiftRight(this.lookhead);
                    }
 
                }
@@ -334,12 +334,12 @@ public class ExpressionParser {
            if (this.expectLexeme("+")) {
                this.move(true);
                this.term();
-               this.codeGenerator.onAdd(this.lookhead);
+               //this.codeGenerator.onAdd(this.lookhead);
            }
            else if (this.expectLexeme("-")) {
                this.move(true);
                this.term();
-               this.codeGenerator.onSub(this.lookhead);
+               //this.codeGenerator.onSub(this.lookhead);
            }
            else {
                break;
@@ -354,17 +354,17 @@ public class ExpressionParser {
            if (this.expectLexeme("*")) {
                this.move(true);
                this.unary();
-               this.codeGenerator.onMult(this.lookhead);
+               //this.codeGenerator.onMult(this.lookhead);
            }
            else if (this.expectLexeme("/")) {
                this.move(true);
                this.unary();
-               this.codeGenerator.onDiv(this.lookhead);
+               //this.codeGenerator.onDiv(this.lookhead);
            }
            else if (this.expectLexeme("%")) {
                this.move(true);
                this.unary();
-               this.codeGenerator.onMod(this.lookhead);
+               //this.codeGenerator.onMod(this.lookhead);
            }
            else {
                break;
@@ -383,7 +383,7 @@ public class ExpressionParser {
            }
            else {
                this.unary();
-               this.codeGenerator.onNot(this.lookhead);
+               //this.codeGenerator.onNot(this.lookhead);
            }
        }
        else if (this.expectLexeme("-")) {
@@ -395,7 +395,7 @@ public class ExpressionParser {
            }
            else {
                this.unary();
-               this.codeGenerator.onNeg(this.lookhead);
+               //this.codeGenerator.onNeg(this.lookhead);
            }
        }
        else if (this.expectLexeme("~")) {
@@ -407,7 +407,7 @@ public class ExpressionParser {
            }
            else {
                this.unary();
-               this.codeGenerator.onBitNot(this.lookhead);
+               //this.codeGenerator.onBitNot(this.lookhead);
            }
        }
        else {
@@ -432,7 +432,9 @@ public class ExpressionParser {
            if (lexeme.equals("-")) {
                lexeme = "-sub";
            }
-           return AviatorEvaluator.containsFunction(lexeme);
+           //return AviatorEvaluator.containsFunction(lexeme);
+           // FIXME
+           return true;
        }
        else {
            this.back();
@@ -480,21 +482,22 @@ public class ExpressionParser {
                boolean hasArray = false;
                while (this.expectLexeme("[")) {
                    if (!hasArray) {
-                       this.codeGenerator.onArray(this.prevToken);
+                       //this.codeGenerator.onArray(this.prevToken);
                        this.move(true);
                        hasArray = true;
                    }
                    else {
                        this.move(true);
                    }
-                   this.codeGenerator.onArrayIndexStart(this.prevToken);
+                   //this.codeGenerator.onArrayIndexStart(this.prevToken);
                    array();
                }
-               if (!hasArray)
-                   this.codeGenerator.onConstant(this.prevToken);
+               if (!hasArray){
+                   //this.codeGenerator.onConstant(this.prevToken);
+               }
            }
            else {
-               this.codeGenerator.onConstant(prev);
+               //this.codeGenerator.onConstant(prev);
            }
        }
        else if (this.expectLexeme("/")) {
@@ -520,7 +523,7 @@ public class ExpressionParser {
        else {
            this.bracketDepth--;
            this.move(true);
-           this.codeGenerator.onArrayIndexEnd(this.lookhead);
+           //this.codeGenerator.onArrayIndexEnd(this.lookhead);
        }
    }
 
@@ -537,15 +540,15 @@ public class ExpressionParser {
 
    private void method() {
        this.parenDepth++;
-       this.codeGenerator.onMethodName(this.prevToken);
+       //this.codeGenerator.onMethodName(this.prevToken);
        this.move(true);
        if (!this.expectLexeme(")")) {
            this.ternary();
-           this.codeGenerator.onMethodParameter(this.lookhead);
+           //this.codeGenerator.onMethodParameter(this.lookhead);
            while (this.expectLexeme(",")) {
                this.move(true);
                this.ternary();
-               this.codeGenerator.onMethodParameter(this.lookhead);
+               //this.codeGenerator.onMethodParameter(this.lookhead);
            }
        }
        if (!this.expectLexeme(")")) {
@@ -554,7 +557,7 @@ public class ExpressionParser {
        else {
            this.parenDepth--;
            this.move(true);
-           this.codeGenerator.onMethodInvoke(this.lookhead);
+           //this.codeGenerator.onMethodInvoke(this.lookhead);
        }
    }
 
@@ -613,7 +616,7 @@ public class ExpressionParser {
        if (this.inPattern) {
            this.reportSyntaxError("invalid regular pattern");
        }
-       this.codeGenerator.onConstant(new PatternToken(sb.toString(), startIndex));
+       //this.codeGenerator.onConstant(new PatternToken(sb.toString(), startIndex));
        this.move(true);
    }
 
@@ -641,7 +644,7 @@ public class ExpressionParser {
    }
 
 
-   public Expression parse() {
+   public void parse() {
        this.ternary();
        if (this.parenDepth > 0) {
            this.reportSyntaxError("insert ')' to complete Expression");
@@ -649,7 +652,7 @@ public class ExpressionParser {
        if (this.bracketDepth > 0) {
            this.reportSyntaxError("insert ']' to complete Expression");
        }
-       return this.codeGenerator.getResult();
+       //return this.codeGenerator.getResult();
    }
 
 }
