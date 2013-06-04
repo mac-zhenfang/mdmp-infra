@@ -30,4 +30,6 @@ public abstract class Message {
 	public void setStatus(int status) {
 		_status = status;
 	}
+	
+	public abstract Object getValue(Object key);
 }
