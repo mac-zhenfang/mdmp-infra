@@ -15,7 +15,10 @@ public class TestSyntax extends TestCase{
 	private ExpressionFactory factory = ExpressionFactory.getInstance();
 	
 	public void testExpression() throws IOException{
-		Expression expression = new Expression("5+3*(abs(-3)+1)+10*2;");
+		//Expression expression = new Expression("5+3*(abs(-3)+1)+10*2;");
+		Expression expression = new Expression("name>5 || age>3;");
+		expression.initVariable("name", 10);
+		expression.initVariable("age", 10);
 		evaluate(expression);
 //		Valuable a = expression.getVariableValue("a");
 //		Printer.println(a.getValue());

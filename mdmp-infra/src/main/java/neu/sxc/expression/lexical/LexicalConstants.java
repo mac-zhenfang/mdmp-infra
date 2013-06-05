@@ -213,6 +213,8 @@ public class LexicalConstants {
 		operators.add("||");
 		operators.add("!");
 		operators.add("=");
+		operators.add("and");
+		operators.add("or");
 		OPERATORS = Collections.unmodifiableList(operators);
 	}
 }

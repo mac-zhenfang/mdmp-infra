@@ -13,6 +13,11 @@ import neu.sxc.expression.tokens.TerminalToken;
 public class TestLexical extends TestCase {
 	private ExpressionFactory factory = ExpressionFactory.getInstance();
 	
+	public void testVar() {
+		Expression expression = factory.getExpression("age +2, name*1");
+		lexicalAnalysis(expression);
+	}
+	
 	public void testNumber() {
 		Expression expression = factory.getExpression("1 1.1 1.10 1e+2 1.1e-1");
 		lexicalAnalysis(expression);

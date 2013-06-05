@@ -1,37 +1,30 @@
 package com.mdmp.infra.sql;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.mdmp.common.util.StringUtils;
+import neu.sxc.expression.Expression;
+
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 import com.mdmp.infra.operator.JsonMessageOperator;
-import com.mdmp.infra.sql.args.Argument;
-import com.mdmp.infra.sql.args.ArgumentFactory;
 import com.mdmp.infra.sql.udf.generic.GenericUDFBaseCompare;
 
 public class FilterOperator extends JsonMessageOperator {
-	public static final String AND = "and";
 	static Map<String, GenericUDFBaseCompare> compareFuncList = new LinkedHashMap<String, GenericUDFBaseCompare>();
+	Expression expression;
 
 	@Override
 	public Message processMessage(JsonMessage message) throws Exception {
-//		String whereString = ((String) message.getValue("where")).toLowerCase();
-//		if (StringUtils.isEmpty(whereString)) {
-//			return message;
-//		}
-		Boolean pass = true;
-		for (String k : compareFuncList.keySet()) {
-			GenericUDFBaseCompare func = compareFuncList.get(k);
-			pass = (Boolean) func.evaluate(message);
-			if (!pass) {
-				break;
-			}
-		}
-		if(pass){
+
+		expression.initVariable(message.toMap());
+		Boolean pass = expression.evaluate().getBooleanValue();
+		/*
+		 * for (String k : compareFuncList.keySet()) { GenericUDFBaseCompare
+		 * func = compareFuncList.get(k); pass = (Boolean)
+		 * func.evaluate(message); if (!pass) { break; } }
+		 */
+		if (pass) {
 			return message;
 		}
 		return null;
@@ -39,48 +32,32 @@ public class FilterOperator extends JsonMessageOperator {
 
 	@Override
 	public void init(String logic) {
-		try {
-			parse(logic);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		expression = new Expression(logic);
 	}
 
-	public void parse(String exp) throws InstantiationException,
-			IllegalAccessException {
-		exp = exp.toLowerCase();
-		String[] sExp = exp.split("and");
-		for (String e : sExp) {
-			if (e.contains(">=")) {
-				parseInternal(">=", e);
-			} else if (e.contains("<=")) {
-				parseInternal(">=", e);
-			} else if (e.contains(">")) {
-				parseInternal(">", e);
-			} else if (e.contains("<")) {
-				parseInternal("<", e);
-			} else if (e.contains("=")) {
-				parseInternal("=", e);
-			} else if (e.contains("!=")) {
-				parseInternal("!=", e);
-			}
-		}
-	}
-	
-	private void parseInternal(String functionName, String e) throws InstantiationException, IllegalAccessException{
-		FunctionInfo fI = FunctionRegistry.getFunctionInfo(functionName);
-		GenericUDFBaseCompare compareFunc = (GenericUDFBaseCompare) fI.getGenericUDF();
-		List<Argument> arguments = new ArrayList<Argument>();
-		String[] args = e.split(functionName);
-		for (String arg : args) {
-			Argument newArg = ArgumentFactory.parseArgument(arg);
-			arguments.add(newArg);
-		}
-		compareFunc.initialize(arguments.toArray(new Argument[arguments.size()]));
-		compareFuncList.put(functionName, compareFunc);
-	}
+	/*
+	 * public void parse(String exp) throws InstantiationException,
+	 * IllegalAccessException { expression = new Expression(exp); exp =
+	 * exp.toLowerCase(); String[] sExp = exp.split("and"); for (String e :
+	 * sExp) { if (e.contains(">=")) { parseInternal(">=", e); } else if
+	 * (e.contains("<=")) { parseInternal(">=", e); } else if (e.contains(">"))
+	 * { parseInternal(">", e); } else if (e.contains("<")) { parseInternal("<",
+	 * e); } else if (e.contains("=")) { parseInternal("=", e); } else if
+	 * (e.contains("!=")) { parseInternal("!=", e); } } }
+	 */
+
+	/*
+	 * private void parseInternal(String functionName, String e) throws
+	 * InstantiationException, IllegalAccessException{ FunctionInfo fI =
+	 * FunctionRegistry.getFunctionInfo(functionName); GenericUDFBaseCompare
+	 * compareFunc = (GenericUDFBaseCompare) fI.getGenericUDF(); List<Argument>
+	 * arguments = new ArrayList<Argument>(); String[] args =
+	 * e.split(functionName); for (String arg : args) { Argument newArg =
+	 * ArgumentFactory.parseArgument(arg); arguments.add(newArg); }
+	 * compareFunc.initialize(arguments.toArray(new
+	 * Argument[arguments.size()])); compareFuncList.put(functionName,
+	 * compareFunc); }
+	 */
 
 	/**
 	 * Checks if the object is of the same class and passes all the conditions.
@@ -115,8 +92,8 @@ public class FilterOperator extends JsonMessageOperator {
 	 */
 	public static void main(String[] args) {
 		FilterOperator oper = new FilterOperator();
-		oper.init("age = 15");
-		JsonMessage msg = new JsonMessage("001", "{age:15}");
+		oper.init("age > 15");
+		JsonMessage msg = new JsonMessage("001", "{age:16}");
 		try {
 			oper.processMessage(msg);
 		} catch (Exception e) {

@@ -1,20 +1,22 @@
 package com.mdmp.infra.sql;
 
+import neu.sxc.expression.Expression;
+
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 import com.mdmp.infra.operator.JsonMessageOperator;
 
 public class SelectOperator  extends JsonMessageOperator {
-
+	Expression expression;
 	@Override
 	public void init(String logic) {
-		// TODO Auto-generated method stub
-		
+		expression = new Expression(logic);
 	}
 
 	@Override
 	public Message processMessage(JsonMessage message) throws Exception {
-		// TODO Auto-generated method stub
+		expression.initVariable(message.toMap());
+		expression.evaluate();
 		return null;
 	}
 

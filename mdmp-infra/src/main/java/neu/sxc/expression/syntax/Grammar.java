@@ -52,7 +52,9 @@ public class Grammar {
 								new Token[]{bolTerm, _bolExpression});
 		
 		_bolExpression.addProduction(new TerminalToken[]{orMark},
-								new Token[]{orMark, bolTerm, orExe, _bolExpression});
+								new Token[]{orMark,  bolTerm, orExe, _bolExpression});
+//		_bolExpression.addProduction(new TerminalToken[]{orMark, _orMark},
+//				new Token[]{orMark, _orMark, bolTerm, orExe, _bolExpression});
 		_bolExpression.addProduction(new TerminalToken[]{rightBracket, comma, semicolon},
 								new Token[]{});
 		
@@ -61,8 +63,12 @@ public class Grammar {
 		
 		_bolTerm.addProduction(new TerminalToken[]{andMark},
 								new Token[]{andMark, bolFactor, andExe, _bolTerm});
-		_bolTerm.addProduction(new TerminalToken[]{orMark, rightBracket, comma, semicolon},
+//		_bolTerm.addProduction(new TerminalToken[]{andMark, _andMark},
+//				new Token[]{andMark, _andMark, bolFactor, andExe, _bolTerm});
+		_bolTerm.addProduction(new TerminalToken[]{orMark,  rightBracket, comma, semicolon},
 								new Token[]{});
+//		_bolTerm.addProduction(new TerminalToken[]{orMark, _orMark, rightBracket, comma, semicolon},
+//				new Token[]{});
 		
 		bolFactor.addProduction(new TerminalToken[]{variable, constant, minusMark, leftBracket, function},
 								new Token[]{compare});
@@ -86,6 +92,8 @@ public class Grammar {
 								new Token[]{lessEMark, expression, lessEExe});
 		_compare.addProduction(new TerminalToken[]{andMark, orMark, rightBracket, comma, semicolon},
 								new Token[]{});
+//		_compare.addProduction(new TerminalToken[]{andMark, _andMark, orMark, _orMark, rightBracket, comma, semicolon},
+//				new Token[]{});
 		
 		expression.addProduction(new TerminalToken[]{variable, constant, minusMark, leftBracket, function},
 								new Token[]{term, _expression});
@@ -96,6 +104,8 @@ public class Grammar {
 								new Token[]{minusMark, term, minusExe, _expression});
 		_expression.addProduction(new TerminalToken[]{equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, orMark, rightBracket, comma, semicolon},
 								new Token[]{});
+//		_expression.addProduction(new TerminalToken[]{equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, _andMark, orMark, _orMark, rightBracket, comma, semicolon},
+//				new Token[]{});
 		
 		term.addProduction(new TerminalToken[]{variable, constant, minusMark, leftBracket, function},
 								new Token[]{factor, _term});
@@ -108,6 +118,8 @@ public class Grammar {
 								new Token[]{modMark, factor, modExe, _term});
 		_term.addProduction(new TerminalToken[]{addMark, minusMark, equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, orMark, rightBracket, comma, semicolon},
 								new Token[]{});
+//		_term.addProduction(new TerminalToken[]{addMark, minusMark, equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, _andMark, orMark, _orMark, rightBracket, comma, semicolon},
+//				new Token[]{});
 		
 		factor.addProduction(new TerminalToken[]{variable},
 								new Token[]{variable});
@@ -174,6 +186,8 @@ public class Grammar {
 	private DelimiterToken notEMark = TokenBuilder.getBuilder().text("!=").buildDelimiter();
 	private DelimiterToken andMark = TokenBuilder.getBuilder().text("&&").buildDelimiter();
 	private DelimiterToken orMark = TokenBuilder.getBuilder().text("||").buildDelimiter();
+//	private DelimiterToken _andMark = TokenBuilder.getBuilder().text("and").buildDelimiter();
+//	private DelimiterToken _orMark = TokenBuilder.getBuilder().text("or").buildDelimiter();
 	private DelimiterToken notMark = TokenBuilder.getBuilder().text("!").buildDelimiter();
 	private DelimiterToken comma = TokenBuilder.getBuilder().text(",").buildDelimiter();
 	private DelimiterToken semicolon = TokenBuilder.getBuilder().text(";").buildDelimiter();
