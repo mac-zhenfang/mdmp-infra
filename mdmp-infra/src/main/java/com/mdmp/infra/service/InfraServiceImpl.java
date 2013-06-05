@@ -36,5 +36,4 @@ public class InfraServiceImpl implements InfraService {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

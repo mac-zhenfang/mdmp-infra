@@ -1,12 +1,10 @@
 package com.mdmp.infra.message;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import com.mdmp.common.util.JsonUtils;
-
 import net.sf.json.JSONObject;
+
+import com.mdmp.common.util.JsonUtils;
 
 public class JsonMessage extends TextMessage {
 	private JSONObject _json;

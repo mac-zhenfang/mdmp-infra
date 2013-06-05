@@ -77,4 +77,5 @@ public class TestSyntax extends TestCase{
 		}
 		PrintExpression.printExp(expression);
 	}
+	
 }

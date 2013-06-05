@@ -217,4 +217,5 @@ public class LexicalConstants {
 		operators.add("or");
 		OPERATORS = Collections.unmodifiableList(operators);
 	}
+	
 }

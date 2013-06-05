@@ -89,7 +89,6 @@ public class JsonUtils {
   public static Map<String, Object> convertToMap(String jsonStr) throws Exception {
 	  return mapper.readValue(jsonStr, HashMap.class);
   }
-  
 }
 
 
