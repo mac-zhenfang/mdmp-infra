@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import neu.sxc.expression.lexical.LexicalAnalyzer;
@@ -148,6 +149,21 @@ public class Expression {
 	 */
 	public void initVariable(String name, Object value) {
 		variableInitialValues.put(name, TokenBuilder.buildRuntimeValue(value));
+	}
+	
+	/**
+	 * 初始化变量
+	 * @param name
+	 * @param value
+	 */
+	public void initVariable(Map<String, Object> msg) {
+		Set<Entry<String, Object>> entrySet = msg.entrySet();
+		for (Entry<String, Object> entry : entrySet) {
+			variableInitialValues.put(entry.getKey(),
+					TokenBuilder.buildRuntimeValue(entry.getValue()));
+		}
+		// variableInitialValues.put(name,
+		// TokenBuilder.buildRuntimeValue(value));
 	}
 	
 	/**

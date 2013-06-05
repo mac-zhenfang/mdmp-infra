@@ -15,8 +15,8 @@ public class MysqlSink extends BasicSink {
 	}
 
 	@Override
-	public void init(String logic) {
+	public void initInternal(String logic) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

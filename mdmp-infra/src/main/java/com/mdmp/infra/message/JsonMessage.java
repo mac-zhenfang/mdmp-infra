@@ -1,10 +1,16 @@
 package com.mdmp.infra.message;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.mdmp.common.util.JsonUtils;
+
 import net.sf.json.JSONObject;
 
 public class JsonMessage extends TextMessage {
 	private JSONObject _json;
-
+	private String _jsonStr;
 	public JsonMessage(String datasourceId) {
 		super(datasourceId);
 	}
@@ -16,6 +22,7 @@ public class JsonMessage extends TextMessage {
 
 	public JsonMessage(String datasourceId, String jsonStr) {
 		this(datasourceId, JSONObject.fromObject(jsonStr));
+		_jsonStr = jsonStr;
 	}
 
 	public Object getValue(Object key) {
@@ -50,6 +57,15 @@ public class JsonMessage extends TextMessage {
 	public static JsonMessage newInstance(Message msg) {
 		return new JsonMessage(msg.getDataSourceId(), "");
 	}
+	
+	public Map<String, Object> toMap() throws Exception{
+		/*Iterator<JSONObject> iter = _json.entrySet().iterator();
+		while(iter.hasNext()){
+			JSONObject obj  = iter.next();
+			m.put(obj, value);
+		}*/
+		return JsonUtils.convertToMap(_jsonStr);
+	} 
 
 	@Override
 	public String toString() {

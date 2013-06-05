@@ -1,7 +1,9 @@
 package com.mdmp.common.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -82,6 +84,10 @@ public class JsonUtils {
     }
     
     return list;
+  }
+  
+  public static Map<String, Object> convertToMap(String jsonStr) throws Exception {
+	  return mapper.readValue(jsonStr, HashMap.class);
   }
   
 }

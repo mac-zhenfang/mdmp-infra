@@ -18,5 +18,9 @@ public abstract class BasicSink extends AbstractMessageOperator {
 		return null;
 	}
 
+	public void init(String logic) {
+		initInternal(logic);
+	}
+	
 	public abstract void forwardMessage(Message msg);
 }

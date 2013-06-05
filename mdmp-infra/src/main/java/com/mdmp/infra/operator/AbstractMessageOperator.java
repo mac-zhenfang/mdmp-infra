@@ -3,6 +3,8 @@ package com.mdmp.infra.operator;
 import java.util.ArrayList;
 import java.util.List;
 
+import neu.sxc.expression.Expression;
+
 import com.mdmp.infra.message.Message;
 
 /**
@@ -52,5 +54,15 @@ public abstract class AbstractMessageOperator implements MessageOperator {
 	public List<MessageOperator> getChinldHanlder() {
 		return childHandler;
 	}
+	
+	public void init(String logic) {
+		initInternal(logic);
+		for (MessageOperator handler : childHandler) {
+			handler.init(logic);
+		}
+	}
+
+	public abstract void initInternal(String logic);
+
 
 }

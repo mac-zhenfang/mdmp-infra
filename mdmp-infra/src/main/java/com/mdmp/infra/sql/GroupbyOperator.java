@@ -25,7 +25,7 @@ public class GroupbyOperator extends JsonMessageOperator {
 	}
 
 	@Override
-	public void init(String logic) {
+	public void initInternal(String logic) {
 		groupKeys = logic;
 	}
 
@@ -45,4 +45,5 @@ public class GroupbyOperator extends JsonMessageOperator {
 			e.printStackTrace();
 		}
 	}
+
 }
