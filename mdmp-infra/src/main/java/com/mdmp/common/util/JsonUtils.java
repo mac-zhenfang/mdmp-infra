@@ -2,12 +2,14 @@ package com.mdmp.common.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 
@@ -86,8 +88,34 @@ public class JsonUtils {
     return list;
   }
   
-  public static Map<String, Object> convertToMap(String jsonStr) throws Exception {
-	  return mapper.readValue(jsonStr, HashMap.class);
+  public static Map<String, Object> toMap(JSONObject object) throws JSONException {
+      Map<String, Object> map = new HashMap<String, Object>();
+      Iterator<?> keys = object.keys();
+      while (keys.hasNext()) {
+          String key = (String) keys.next();
+          map.put(key, fromJson(object.get(key)));
+      }
+      return map;
+  }
+
+  public static List toList(JSONArray array) throws JSONException {
+      List list = new ArrayList();
+      for (int i = 0; i < array.size(); i++) {
+          list.add(fromJson(array.get(i)));
+      }
+      return list;
+  }
+
+  private static Object fromJson(Object json) throws JSONException {
+      if (json == null) {
+          return null;
+      } else if (json instanceof JSONObject) {
+          return toMap((JSONObject) json);
+      } else if (json instanceof JSONArray) {
+          return toList((JSONArray) json);
+      } else {
+          return json;
+      }
   }
 }
 

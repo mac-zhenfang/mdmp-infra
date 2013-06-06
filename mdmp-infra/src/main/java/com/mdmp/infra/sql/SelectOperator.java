@@ -20,7 +20,7 @@ public class SelectOperator  extends JsonMessageOperator {
 		logic = logic.substring(logic.indexOf("SELECT") + 6, logic.indexOf("WHERE"));
 		String[] logics = logic.split(",");
 		for(String miniLogic : logics){
-			miniLogic = StringUtils.trim(miniLogic);
+			miniLogic = StringUtils.trim(miniLogic) + ";";
 			expressionList.add(new Expression(miniLogic));
 		}
 	}
@@ -31,7 +31,8 @@ public class SelectOperator  extends JsonMessageOperator {
 		List<String> answer = new ArrayList<String>();
 		for (Expression exp : expressionList) {
 			exp.initVariable(variable);
-			String value = exp.evaluate().getStringValue();
+			// FIXME variable type?
+			String value = exp.reParseAndEvaluate().toString();
 			answer.add(value);
 			System.out.println(value + "   ");
 		}
@@ -43,7 +44,7 @@ public class SelectOperator  extends JsonMessageOperator {
 		FilterOperator filter = new FilterOperator();
 		SelectOperator oper = new SelectOperator();
 		filter.addChinldHanlder(oper);
-		String logic = "SELECT 3+name, age*2 WHERE age > 10";
+		String logic = "SELECT location, age*2 WHERE age > 10";
 		filter.init(logic);
 		JsonMessage msg = new JsonMessage(
 				"001",

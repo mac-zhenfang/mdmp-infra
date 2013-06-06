@@ -3,6 +3,8 @@ package com.mdmp.infra.sql;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import neu.sxc.expression.Expression;
 
 import com.mdmp.infra.message.JsonMessage;
@@ -18,7 +20,7 @@ public class FilterOperator extends JsonMessageOperator {
 	public Message processMessage(JsonMessage message) throws Exception {
 
 		expression.initVariable(message.toMap());
-		Boolean pass = expression.evaluate().getBooleanValue();
+		Boolean pass = expression.reParseAndEvaluate().getBooleanValue();
 		/*
 		 * for (String k : compareFuncList.keySet()) { GenericUDFBaseCompare
 		 * func = compareFuncList.get(k); pass = (Boolean)
@@ -88,6 +90,7 @@ public class FilterOperator extends JsonMessageOperator {
 	@Override
 	public void initInternal(String logic) {
 		logic = logic.substring(logic.indexOf("WHERE") + 5);
+		logic = StringUtils.trim(logic) + ";";
 		expression = new Expression(logic);
 	}
 	

@@ -62,7 +62,7 @@ public class JsonMessage extends TextMessage {
 			JSONObject obj  = iter.next();
 			m.put(obj, value);
 		}*/
-		return JsonUtils.convertToMap(_jsonStr);
+		return JsonUtils.toMap(_json);
 	} 
 
 	@Override

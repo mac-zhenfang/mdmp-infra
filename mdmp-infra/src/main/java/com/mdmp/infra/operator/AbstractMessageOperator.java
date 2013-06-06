@@ -31,6 +31,7 @@ public abstract class AbstractMessageOperator implements MessageOperator {
 				return;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (!next) {
 				return;
 			}
