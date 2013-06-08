@@ -3,8 +3,8 @@ package com.mdmp.infra.operator;
 import java.util.ArrayList;
 import java.util.List;
 
-import neu.sxc.expression.Expression;
 
+import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.message.Message;
 
 /**

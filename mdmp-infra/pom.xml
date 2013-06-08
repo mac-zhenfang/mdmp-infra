@@ -221,6 +221,7 @@
 		</dependency>
 
 		<!-- Drools engine -->
+		<!--
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
@@ -238,12 +239,16 @@
 			<artifactId>janino</artifactId>
 			<version>2.5.16</version>
 		</dependency>
+		-->
 		<!-- Drools engine -->
 
+		<!-- 
 		<dependency>
 			<groupId>com.googlecode.aviator</groupId>
 			<artifactId>aviator</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+ 		-->
+
 	</dependencies>
 </project>

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import neu.sxc.expression.Expression;
 
+import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 import com.mdmp.infra.operator.JsonMessageOperator;
