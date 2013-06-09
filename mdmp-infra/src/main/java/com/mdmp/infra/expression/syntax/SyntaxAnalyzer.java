@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mdmp.infra.expression.lexical.LexicalConstants;
-import com.mdmp.infra.expression.syntax.function.Function;
-import com.mdmp.infra.expression.syntax.operator.AssignOperator;
-import com.mdmp.infra.expression.syntax.operator.Operator;
 import com.mdmp.infra.expression.tokens.ConstToken;
 import com.mdmp.infra.expression.tokens.ContextOperationToken;
 import com.mdmp.infra.expression.tokens.DataType;
@@ -21,6 +18,9 @@ import com.mdmp.infra.expression.tokens.Token;
 import com.mdmp.infra.expression.tokens.TokenType;
 import com.mdmp.infra.expression.tokens.Valuable;
 import com.mdmp.infra.expression.tokens.VariableToken;
+import com.mdmp.infra.sql.udaf.Function;
+import com.mdmp.infra.sql.udf.AssignOperator;
+import com.mdmp.infra.sql.udf.Operator;
 import com.mdmp.infra.util.Stack;
 
 

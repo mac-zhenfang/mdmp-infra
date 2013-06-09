@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 import com.mdmp.infra.expression.syntax.Executable;
-import com.mdmp.infra.expression.syntax.function.Function;
+import com.mdmp.infra.sql.udaf.Function;
 
 
 /**

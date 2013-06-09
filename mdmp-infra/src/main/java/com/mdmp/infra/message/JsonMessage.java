@@ -30,8 +30,8 @@ public class JsonMessage extends TextMessage {
 		return _json.get(key);
 	}
 
-	public Object putValue(Object key, Object value) {
-		return _json.put(key, value);
+	public void putValue(Object key, Object value) {
+		_json.put(key, value);
 	}
 
 	public boolean containsKey(Object key) {
@@ -57,11 +57,6 @@ public class JsonMessage extends TextMessage {
 	}
 	
 	public Map<String, Object> toMap() throws Exception{
-		/*Iterator<JSONObject> iter = _json.entrySet().iterator();
-		while(iter.hasNext()){
-			JSONObject obj  = iter.next();
-			m.put(obj, value);
-		}*/
 		return JsonUtils.toMap(_json);
 	} 
 

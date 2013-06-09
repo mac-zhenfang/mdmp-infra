@@ -1,33 +1,30 @@
-package com.mdmp.infra.expression.test;
-
-import java.util.Calendar;
-import java.util.Date;
+package com.mdmp.infra.sql.udaf;
 
 import com.mdmp.infra.expression.tokens.DataType;
 import com.mdmp.infra.expression.tokens.Valuable;
-import com.mdmp.infra.sql.udaf.Function;
 
+public class Abs extends Function {
 
-public class CurrentDate extends Function {
 	@Override
 	public String getName() {
-		return "getDate";
+		return "abs";
 	}
 	
 	@Override
 	public int getArgumentNum() {
-		return 0;
+		return 1;
 	}
 	
 	@Override
 	public DataType[] getArgumentsDataType() {
-		return null;
+		return new DataType[]{DataType.NUMBER};
 	}
-	
+
 	@Override
 	protected Object executeFunction(Valuable[] arguments) {
-		Calendar date = Calendar.getInstance();
-		date.setTime(new Date());
-		return date;
+		Valuable argument = arguments[0];
+		return argument.getNumberValue().abs();
 	}
+
+
 }

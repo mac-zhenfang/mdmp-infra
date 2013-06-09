@@ -17,12 +17,12 @@ import java.util.regex.Pattern;
 import com.mdmp.infra.expression.lexical.dfa.DFADefinition;
 import com.mdmp.infra.expression.lexical.dfa.DFAEndStateCode;
 import com.mdmp.infra.expression.lexical.dfa.DFAMidState;
-import com.mdmp.infra.expression.syntax.function.Function;
-import com.mdmp.infra.expression.syntax.function.SystemFunctions;
 import com.mdmp.infra.expression.tokens.DataType;
 import com.mdmp.infra.expression.tokens.TerminalToken;
 import com.mdmp.infra.expression.tokens.TokenBuilder;
 import com.mdmp.infra.expression.tokens.VariableToken;
+import com.mdmp.infra.sql.udaf.Function;
+import com.mdmp.infra.sql.udaf.SystemFunctions;
 import com.mdmp.infra.util.ExpressionUtil;
 
 

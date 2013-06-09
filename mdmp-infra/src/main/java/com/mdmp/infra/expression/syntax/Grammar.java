@@ -1,6 +1,5 @@
 package com.mdmp.infra.expression.syntax;
 
-import com.mdmp.infra.expression.syntax.operator.OperatorFactory;
 import com.mdmp.infra.expression.tokens.ConstToken;
 import com.mdmp.infra.expression.tokens.ContextOperation;
 import com.mdmp.infra.expression.tokens.ContextOperationToken;
@@ -13,6 +12,7 @@ import com.mdmp.infra.expression.tokens.TerminalToken;
 import com.mdmp.infra.expression.tokens.Token;
 import com.mdmp.infra.expression.tokens.TokenBuilder;
 import com.mdmp.infra.expression.tokens.VariableToken;
+import com.mdmp.infra.sql.udf.OperatorFactory;
 
 /**
  * 文法及文法符号初始化

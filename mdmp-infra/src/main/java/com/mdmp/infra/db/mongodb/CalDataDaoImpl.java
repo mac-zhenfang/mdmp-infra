@@ -141,7 +141,8 @@ public class CalDataDaoImpl implements CalDataDao {
 
 	@Override
 	public void put(String collection, String timestamp, Map<String, Object> kv) {
-		DBCollection caldata = db.getCollection("caldata");
+		//DBCollection caldata = db.getCollection("caldata");
+		DBCollection caldata = null;
 		for (int i = 0; i < 1000; i++) {
 			BasicDBObject metrics = new BasicDBObject();
 			metrics.put("ts", System.currentTimeMillis());

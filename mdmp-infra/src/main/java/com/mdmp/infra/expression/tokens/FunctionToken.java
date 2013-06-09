@@ -1,6 +1,6 @@
 package com.mdmp.infra.expression.tokens;
 
-import com.mdmp.infra.expression.syntax.function.Function;
+import com.mdmp.infra.sql.udaf.Function;
 
 /**
  * 函数符号

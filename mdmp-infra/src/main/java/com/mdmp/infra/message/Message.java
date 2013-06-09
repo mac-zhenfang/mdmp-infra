@@ -1,5 +1,7 @@
 package com.mdmp.infra.message;
 
+import java.util.Map;
+
 public abstract class Message {
 	public static final int MSG_DEFAULT = 0;
 	public static final int MSG_JSON = 1;
@@ -32,4 +34,7 @@ public abstract class Message {
 	}
 	
 	public abstract Object getValue(Object key);
+	public abstract void putValue(Object key, Object value);
+	
+	public abstract Map<String, Object> toMap() throws Exception;
 }

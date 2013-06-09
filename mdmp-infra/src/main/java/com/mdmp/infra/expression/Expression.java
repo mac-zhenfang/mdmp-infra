@@ -15,11 +15,11 @@ import com.mdmp.infra.expression.lexical.LexicalAnalyzer;
 import com.mdmp.infra.expression.lexical.LexicalException;
 import com.mdmp.infra.expression.syntax.SyntaxAnalyzer;
 import com.mdmp.infra.expression.syntax.SyntaxException;
-import com.mdmp.infra.expression.syntax.function.Function;
 import com.mdmp.infra.expression.tokens.TerminalToken;
 import com.mdmp.infra.expression.tokens.TokenBuilder;
 import com.mdmp.infra.expression.tokens.TokenType;
 import com.mdmp.infra.expression.tokens.Valuable;
+import com.mdmp.infra.sql.udaf.Function;
 
 
 /**
