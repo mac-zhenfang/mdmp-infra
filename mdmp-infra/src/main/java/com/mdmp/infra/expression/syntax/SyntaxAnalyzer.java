@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mdmp.infra.expression.ArgumentsMismatchException;
+import com.mdmp.infra.expression.SyntaxException;
+import com.mdmp.infra.expression.VariableNotInitializedException;
 import com.mdmp.infra.expression.lexical.LexicalConstants;
 import com.mdmp.infra.expression.tokens.ConstToken;
 import com.mdmp.infra.expression.tokens.ContextOperationToken;
@@ -143,6 +146,9 @@ public class SyntaxAnalyzer {
 			syntaxStackTop = syntaxStack.pop();
 			switch(syntaxStackTop.getTokenType()) {
 			case NT: //语法栈顶为非终结符时，查找产生式
+				if("like".equals(currentToken.getText())){
+					System.out.println();
+				}
 				Token[] production = ((NonterminalToken)syntaxStackTop).getProduction(currentToken);
 				if(production != null)
 					reverseProductionIntoSyntaxStack(production);

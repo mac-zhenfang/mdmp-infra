@@ -3,6 +3,7 @@ package com.mdmp.infra.expression.lexical;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.mdmp.infra.expression.tokens.DelimiterToken;
 import com.mdmp.infra.expression.tokens.TokenBuilder;
@@ -27,9 +28,14 @@ public class LexicalConstants {
 	public static final String LETTER_UNDERLINE_PATTERN = "[a-zA-Z_]";
 	
 	/**
-	 * 界符 ; ( ) , + - * / = > < | & ! { } . %
+	 * 界符:
+	 * <br>
+	 *  ; ( ) , + - * / = > < | & ! { } . %
 	 */
 	public static final String DELIMITER_PATTERN = "[;(),\\+\\-\\*/=><|&!{}\\.%]";
+	
+	
+	public static final String WORD_DELIMITER_PATTERN = "like|and|or";
 	
 	/**
 	 * 非界符
@@ -156,6 +162,11 @@ public class LexicalConstants {
 	 */
 	public static final List<String> DOUBLE_DELIMITERS;
 	
+	/**
+	 * 单词符界符，如like, and, or
+	 */
+	public static final List<String> WORD_DELIMITERS;
+	
 	public static final List<String> OPERATORS;
 	
 	static {
@@ -178,6 +189,12 @@ public class LexicalConstants {
 		doubleDelimiters.add("&&");
 		doubleDelimiters.add("||");
 		DOUBLE_DELIMITERS = Collections.unmodifiableList(doubleDelimiters);
+		
+		List<String> wordDelimiters = new ArrayList<String>();
+		doubleDelimiters.add("like");
+		doubleDelimiters.add("and");
+		doubleDelimiters.add("or");
+		WORD_DELIMITERS = Collections.unmodifiableList(wordDelimiters);
 		
 		List<String> singleDelimiters = new ArrayList<String>();
 		singleDelimiters.add("+");
@@ -216,7 +233,12 @@ public class LexicalConstants {
 		operators.add("=");
 		operators.add("and");
 		operators.add("or");
+		operators.add("like");
 		OPERATORS = Collections.unmodifiableList(operators);
 	}
 	
+	public static void main(String[] args) {
+		boolean lll = Pattern.matches(WORD_DELIMITER_PATTERN, "and");
+		System.out.println(lll);
+	}
 }

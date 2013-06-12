@@ -1,5 +1,6 @@
 package com.mdmp.infra.expression.syntax;
 
+import com.mdmp.infra.expression.ArgumentsMismatchException;
 import com.mdmp.infra.expression.tokens.Valuable;
 
 /**

@@ -1,4 +1,4 @@
-package com.mdmp.infra.operator.sink;
+package com.mdmp.infra.handler.sink;
 
 import javax.annotation.Resource;
 

@@ -98,6 +98,8 @@ public class Grammar {
 		expression.addProduction(new TerminalToken[]{variable, constant, minusMark, leftBracket, function},
 								new Token[]{term, _expression});
 		
+		_expression.addProduction(new TerminalToken[]{likeMark},
+								new Token[]{likeMark, term, likeExe, _expression});
 		_expression.addProduction(new TerminalToken[]{addMark},
 								new Token[]{addMark, term, addExe, _expression});
 		_expression.addProduction(new TerminalToken[]{minusMark},
@@ -116,7 +118,7 @@ public class Grammar {
 								new Token[]{divideMark, factor, divideExe, _term});
 		_term.addProduction(new TerminalToken[]{modMark},
 								new Token[]{modMark, factor, modExe, _term});
-		_term.addProduction(new TerminalToken[]{addMark, minusMark, equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, orMark, rightBracket, comma, semicolon},
+		_term.addProduction(new TerminalToken[]{addMark, likeMark, minusMark, equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, orMark, rightBracket, comma, semicolon},
 								new Token[]{});
 //		_term.addProduction(new TerminalToken[]{addMark, minusMark, equalMark, notEMark, greatMark, greatEMark, lessMark, lessEMark, andMark, _andMark, orMark, _orMark, rightBracket, comma, semicolon},
 //				new Token[]{});
@@ -173,6 +175,7 @@ public class Grammar {
 	private FunctionToken function = TokenBuilder.getBuilder().buildFunction();
 	
 	//界符
+	private DelimiterToken likeMark =  TokenBuilder.getBuilder().text("like").buildDelimiter();
 	private DelimiterToken addMark =  TokenBuilder.getBuilder().text("+").buildDelimiter();
 	private DelimiterToken minusMark = TokenBuilder.getBuilder().text("-").buildDelimiter();
 	private DelimiterToken multiplyMark = TokenBuilder.getBuilder().text("*").buildDelimiter();
@@ -222,6 +225,7 @@ public class Grammar {
 	private NonterminalToken _parameters = TokenBuilder.getBuilder().buildNT();
 	
 	//语义动作
+	private ExecutionToken likeExe = TokenBuilder.getBuilder().executable(OperatorFactory.getOperator("LIKE")).buildExecution();
 	private ExecutionToken addExe = TokenBuilder.getBuilder().executable(OperatorFactory.getOperator("ADD")).buildExecution();
 	private ExecutionToken minusExe = TokenBuilder.getBuilder().executable(OperatorFactory.getOperator("MINUS")).buildExecution();
 	private ExecutionToken multiplyExe = TokenBuilder.getBuilder().executable(OperatorFactory.getOperator("MULTIPLY")).buildExecution();

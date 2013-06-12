@@ -23,6 +23,7 @@ public enum DFAMidStateCode {
 	//界符中间状态
 	DELIMITER_1,
 	DELIMITER_2,
+	DELIMITER_3,
 	
 	//日期中间状态
 	DATE_1,

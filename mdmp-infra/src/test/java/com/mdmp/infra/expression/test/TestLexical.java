@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.expression.ExpressionFactory;
+import com.mdmp.infra.expression.LexicalException;
 import com.mdmp.infra.expression.lexical.LexicalAnalyzer;
-import com.mdmp.infra.expression.lexical.LexicalException;
 import com.mdmp.infra.expression.tokens.TerminalToken;
 
 import junit.framework.TestCase;

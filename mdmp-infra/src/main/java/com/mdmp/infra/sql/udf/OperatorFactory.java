@@ -16,6 +16,7 @@ public class OperatorFactory {
 	}
 
 	static {
+		addOperator(new LikeOperator());
 		addOperator(new AddOperator());
 		addOperator(new MinusOperator());
 		addOperator(new MultiplyOperator());

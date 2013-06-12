@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.mdmp.infra.operator.MessageOperator;
+import com.mdmp.infra.handler.MessageOperator;
 
 public class OperatorCache extends AbstractCache{
 

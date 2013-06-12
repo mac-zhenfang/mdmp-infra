@@ -2,12 +2,12 @@ package com.mdmp.infra.expression.test;
 
 import java.io.IOException;
 
+import com.mdmp.infra.expression.ArgumentsMismatchException;
 import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.expression.ExpressionFactory;
-import com.mdmp.infra.expression.lexical.LexicalException;
-import com.mdmp.infra.expression.syntax.ArgumentsMismatchException;
-import com.mdmp.infra.expression.syntax.SyntaxException;
-import com.mdmp.infra.expression.syntax.VariableNotInitializedException;
+import com.mdmp.infra.expression.LexicalException;
+import com.mdmp.infra.expression.SyntaxException;
+import com.mdmp.infra.expression.VariableNotInitializedException;
 
 import junit.framework.TestCase;
 
@@ -48,6 +48,12 @@ public class TestSyntax extends TestCase{
 	
 	public void testBoolean() {
 		Expression expression = factory.getExpression("(1+2)>2 && !2>1 || TRUE;");
+		evaluate(expression);
+	}
+	
+	public void testLike() {
+//		Expression expression = factory.getExpression("'aabb';");
+		Expression expression = factory.getExpression("\"aabb\" like \"a%\";");
 		evaluate(expression);
 	}
 	

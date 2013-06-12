@@ -34,6 +34,7 @@ public class DFADefinition {
 		START_STATE.setNextMidState(DIGITS_PATTERN, NUMBER_1);
 		START_STATE.setNextMidState(LETTER_UNDERLINE_PATTERN, ID_1);
 		START_STATE.setNextMidState(DELIMITER_PATTERN, DELIMITER_1);
+		//START_STATE.setNextMidState(WORD_DELIMITER_PATTERN, DELIMITER_3);
 		START_STATE.setNextMidState(LEFT_SQUARE_BRACKET_PATTERN, DATE_1);
 		START_STATE.setNextMidState(SINGLE_QUOTES_PATTERN, CHAR_1);
 		START_STATE.setNextMidState(DOUBLE_QUOTES_PATTERN, STRING_1);
@@ -81,6 +82,7 @@ public class DFADefinition {
 	private void initDelimiterStates(){
 		DELIMITER_1.setNextMidState(DELIMITER_PATTERN, DELIMITER_2);
 		DELIMITER_1.setRouteToEndState(NOT_DELIMITER_PATTERN, DFAEndStateCode.SINGLE_DELIMITER_END);
+		DELIMITER_3.setRouteToEndState(WORD_DELIMITER_PATTERN, DFAEndStateCode.WORD_DELIMITER_END);
 		
 		DELIMITER_2.setRouteToEndState(ANY_CHAR_PATTERN, DFAEndStateCode.DOUBLE_DELIMITER_END);
 	}
@@ -156,6 +158,8 @@ public class DFADefinition {
 	private DFAMidState ID_1 = new DFAMidState(DFAMidStateCode.ID_1);
 	                        
 	private DFAMidState DELIMITER_1 = new DFAMidState(DFAMidStateCode.DELIMITER_1);
+	
+	private DFAMidState DELIMITER_3 = new DFAMidState(DFAMidStateCode.DELIMITER_3);
 	 
 	private DFAMidState DELIMITER_2 = new DFAMidState(DFAMidStateCode.DELIMITER_2);
 	                         

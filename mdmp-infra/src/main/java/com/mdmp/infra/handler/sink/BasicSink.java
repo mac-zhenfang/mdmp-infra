@@ -1,8 +1,8 @@
-package com.mdmp.infra.operator.sink;
+package com.mdmp.infra.handler.sink;
 
+import com.mdmp.infra.handler.AbstractMessageOperator;
+import com.mdmp.infra.handler.MessageOperator;
 import com.mdmp.infra.message.Message;
-import com.mdmp.infra.operator.AbstractMessageOperator;
-import com.mdmp.infra.operator.MessageOperator;
 
 /**
  * Forward message to another storage system, not change it.

@@ -1,4 +1,4 @@
-package com.mdmp.infra.expression.lexical;
+package com.mdmp.infra.expression;
 
 import com.mdmp.infra.expression.lexical.dfa.DFAMidState;
 

@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mdmp.infra.expression.LexicalException;
 import com.mdmp.infra.expression.lexical.dfa.DFADefinition;
 import com.mdmp.infra.expression.lexical.dfa.DFAEndStateCode;
 import com.mdmp.infra.expression.lexical.dfa.DFAMidState;
@@ -182,7 +183,13 @@ public class LexicalAnalyzer {
 			} else if(hasFunction(curWordText)) { //函数
 				curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
 								.text(curWordText).function(findFunction(curWordText)).buildFunction();
-			} else //变量
+			} else if ("like".equals(curWordText.toLowerCase()) || "and".equals(curWordText.toLowerCase())
+					|| "or".equals(curWordText.toLowerCase())) { // 函数
+				curToken = TokenBuilder.getBuilder().line(curLine)
+						.column(wordStartColumn).text(curWordText).buildDelimiter();
+						//.function(findFunction(curWordText)).buildFunction();
+			} else
+				// 变量
 				curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
 								.text(curWordText).buildVariable();
 			break;
@@ -204,6 +211,21 @@ public class LexicalAnalyzer {
 				if(SINGLE_DELIMITERS.contains(firstDelimiter)) {
 					curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
 									.text(firstDelimiter).buildDelimiter();
+					nextScanColumn--;
+				} else
+					throw new LexicalException("Invalid delimiter.", curLine, wordStartColumn);
+			}
+			break;
+		case WORD_DELIMITER_END:
+			if(WORD_DELIMITERS.contains(curWordText)) {	//判断是否为合法的单词字符界符
+				curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
+						.text(curWordText).buildDelimiter();
+			} else {
+				//取第一个字符，如果是合法的单字符界符，当前列扫描位置减1，下次扫描从第二个界符开始
+				String firstDelimiter = curWordText.substring(0, 1);
+				if(SINGLE_DELIMITERS.contains(firstDelimiter)) {
+					curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
+							.text(firstDelimiter).buildDelimiter();
 					nextScanColumn--;
 				} else
 					throw new LexicalException("Invalid delimiter.", curLine, wordStartColumn);

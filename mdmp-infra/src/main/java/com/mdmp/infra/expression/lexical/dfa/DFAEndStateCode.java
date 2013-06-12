@@ -18,6 +18,9 @@ public enum DFAEndStateCode {
 	//双字符界符结束状态（如>=、&&）
 	DOUBLE_DELIMITER_END,
 	
+	//单词字符界符结束状态（如like, and, or）
+	WORD_DELIMITER_END,
+	
 	//日期结束状态
 	DATE_END,
 	

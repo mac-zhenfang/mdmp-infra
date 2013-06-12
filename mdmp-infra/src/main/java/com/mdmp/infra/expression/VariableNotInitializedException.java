@@ -1,4 +1,4 @@
-package com.mdmp.infra.expression.syntax;
+package com.mdmp.infra.expression;
 
 import com.mdmp.infra.expression.tokens.VariableToken;
 
