@@ -2,12 +2,12 @@ package com.mdmp.infra.expression.test;
 
 import java.io.IOException;
 
-import com.mdmp.infra.expression.ArgumentsMismatchException;
+import com.mdmp.common.exception.ArgumentsMismatchException;
+import com.mdmp.common.exception.LexicalException;
+import com.mdmp.common.exception.SyntaxException;
+import com.mdmp.common.exception.VariableNotInitializedException;
 import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.expression.ExpressionFactory;
-import com.mdmp.infra.expression.LexicalException;
-import com.mdmp.infra.expression.SyntaxException;
-import com.mdmp.infra.expression.VariableNotInitializedException;
 
 import junit.framework.TestCase;
 
@@ -54,6 +54,20 @@ public class TestSyntax extends TestCase{
 	public void testLike() {
 //		Expression expression = factory.getExpression("'aabb';");
 		Expression expression = factory.getExpression("\"aabb\" like \"a%\";");
+		evaluate(expression);
+	}
+	
+	public void testOr() {
+		Expression expression = new Expression("name>5 or age>3;");
+		expression.initVariable("name", 10);
+		expression.initVariable("age", 2);
+		evaluate(expression);
+	}
+	
+	public void testAnd() {
+		Expression expression = new Expression("name>5 and age>3;");
+		expression.initVariable("name", 10);
+		expression.initVariable("age", 2);
 		evaluate(expression);
 	}
 	

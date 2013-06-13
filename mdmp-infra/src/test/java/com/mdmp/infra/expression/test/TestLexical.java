@@ -2,9 +2,9 @@ package com.mdmp.infra.expression.test;
 
 import java.util.List;
 
+import com.mdmp.common.exception.LexicalException;
 import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.expression.ExpressionFactory;
-import com.mdmp.infra.expression.LexicalException;
 import com.mdmp.infra.expression.lexical.LexicalAnalyzer;
 import com.mdmp.infra.expression.tokens.TerminalToken;
 

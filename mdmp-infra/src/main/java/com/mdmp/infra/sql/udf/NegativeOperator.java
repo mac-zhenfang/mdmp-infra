@@ -2,7 +2,7 @@ package com.mdmp.infra.sql.udf;
 
 import java.math.BigDecimal;
 
-import com.mdmp.infra.expression.ArgumentsMismatchException;
+import com.mdmp.common.exception.ArgumentsMismatchException;
 import com.mdmp.infra.expression.tokens.DataType;
 import com.mdmp.infra.expression.tokens.Valuable;
 

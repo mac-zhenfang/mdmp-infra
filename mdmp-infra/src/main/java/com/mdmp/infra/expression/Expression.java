@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.mdmp.common.exception.LexicalException;
+import com.mdmp.common.exception.SyntaxException;
 import com.mdmp.infra.expression.lexical.LexicalAnalyzer;
 import com.mdmp.infra.expression.syntax.SyntaxAnalyzer;
 import com.mdmp.infra.expression.tokens.TerminalToken;

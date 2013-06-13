@@ -1,4 +1,4 @@
-package com.mdmp.infra.expression;
+package com.mdmp.common.exception;
 
 import com.mdmp.infra.expression.tokens.TerminalToken;
 import com.mdmp.infra.expression.tokens.Valuable;

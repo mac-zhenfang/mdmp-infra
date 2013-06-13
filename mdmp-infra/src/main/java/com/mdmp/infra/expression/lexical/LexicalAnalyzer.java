@@ -14,7 +14,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.mdmp.infra.expression.LexicalException;
+import com.mdmp.common.exception.LexicalException;
 import com.mdmp.infra.expression.lexical.dfa.DFADefinition;
 import com.mdmp.infra.expression.lexical.dfa.DFAEndStateCode;
 import com.mdmp.infra.expression.lexical.dfa.DFAMidState;
@@ -187,7 +187,6 @@ public class LexicalAnalyzer {
 					|| "or".equals(curWordText.toLowerCase())) { // 函数
 				curToken = TokenBuilder.getBuilder().line(curLine)
 						.column(wordStartColumn).text(curWordText).buildDelimiter();
-						//.function(findFunction(curWordText)).buildFunction();
 			} else
 				// 变量
 				curToken = TokenBuilder.getBuilder().line(curLine).column(wordStartColumn)
