@@ -20,6 +20,9 @@ public class ValueUtil {
 		if(valuable.getDataType() == DataType.STRING
 				&& valuable.getValue() != null)
 			return (String) valuable.getValue();
+		if(valuable.getDataType() == DataType.NUMBER
+				&& valuable.getValue() != null)
+			return String.valueOf((BigDecimal) valuable.getValue());
 		return null;
 	}
 	

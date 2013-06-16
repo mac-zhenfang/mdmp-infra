@@ -1,18 +1,18 @@
 package com.mdmp.infra.cache;
 
+import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MongodbCache extends AbstractCache{
-
+	ConcurrentHashMap<Object, Object> cache = new ConcurrentHashMap<Object, Object>();
 	public Object getValue(Object key) {
-		// TODO Auto-generated method stub
-		return null;
+		return cache.get(key);
 	}
 
 	@Override
 	public void putValue(Object key, Object value) {
-		// TODO Auto-generated method stub
-		
+		cache.put(key, value);
 	}
 
 	@Override

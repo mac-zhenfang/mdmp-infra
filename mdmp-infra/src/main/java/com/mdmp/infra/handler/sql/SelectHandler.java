@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.mdmp.infra.cache.CacheManager;
 import com.mdmp.infra.expression.Expression;
 import com.mdmp.infra.handler.AbstractMessageHandler;
 import com.mdmp.infra.message.JsonMessage;
@@ -30,14 +31,15 @@ public class SelectHandler  extends AbstractMessageHandler {
 	public Message processMessage(Message message) throws Exception {
 		Map<String, Object> variable = message.toMap();
 		List<String> answer = new ArrayList<String>();
+		String value = "NONE";
 		for (Expression exp : expressionList) {
 			exp.initVariable(variable);
 			// FIXME variable type?
-			String value = exp.evaluate().toString();
+			value = exp.evaluate().getStringValue();
 			answer.add(value);
-			System.out.println(value + "   ");
+			//System.out.println(value + "   ");
 		}
-		System.out.println();
+		CacheManager.getMongodbCacheInstance().putValue("aaa", answer);
 		return null;
 	}
 

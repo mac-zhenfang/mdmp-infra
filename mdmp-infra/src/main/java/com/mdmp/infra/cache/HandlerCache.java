@@ -9,7 +9,7 @@ import com.mdmp.infra.handler.MessageHandler;
 import com.mdmp.infra.handler.sql.FilterHandler;
 import com.mdmp.infra.handler.sql.SelectHandler;
 
-public class OperatorCache extends AbstractCache{
+public class HandlerCache extends AbstractCache{
 
 	Map<String, MessageHandler> opCache = new ConcurrentHashMap<String, MessageHandler>();
 	

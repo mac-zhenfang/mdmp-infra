@@ -6,6 +6,7 @@ import com.mdmp.common.exception.MDMPException;
 import com.mdmp.infra.bean.Report;
 import com.mdmp.infra.cache.CacheManager;
 import com.mdmp.infra.handler.MessageHandler;
+import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 
 @Service("infraService")
@@ -35,5 +36,14 @@ public class InfraServiceImpl implements InfraService {
 	public void updateReports() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		InfraServiceImpl infra = new InfraServiceImpl();
+		JsonMessage msg = new JsonMessage(
+				"001",
+				"{\"name\":\"news\",\"age\":15,\"dsId\":001,\"ip\":\"10.224.192.166\",\"no\":10,\"location\":\"china\", \"GroupByKey\":\"location\"}");
+		infra.processMessage(msg);
+		System.out.println(CacheManager.getMongodbCacheInstance().getValue("aaa"));
 	}
 }
