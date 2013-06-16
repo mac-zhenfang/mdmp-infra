@@ -11,15 +11,15 @@ import com.mdmp.infra.message.Message;
  * @author dream
  * 
  */
-public abstract class AbstractMessageOperator implements MessageOperator {
-	private List<MessageOperator> childHandler = new ArrayList<MessageOperator>();
+public abstract class AbstractMessageHandler implements MessageHandler {
+	private List<MessageHandler> childHandler = new ArrayList<MessageHandler>();
 	private boolean next = true;
 
-	public AbstractMessageOperator() {
+	public AbstractMessageHandler() {
 
 	}
 
-	public AbstractMessageOperator(String param) {
+	public AbstractMessageHandler(String param) {
 
 	}
 
@@ -36,7 +36,7 @@ public abstract class AbstractMessageOperator implements MessageOperator {
 				return;
 			}
 		}
-		for (MessageOperator handler : childHandler) {
+		for (MessageHandler handler : childHandler) {
 			handler.submitMessage(nextMsg);
 		}
 	}
@@ -46,19 +46,19 @@ public abstract class AbstractMessageOperator implements MessageOperator {
 	}
 
 	@Override
-	public void addChinldHanlder(MessageOperator handler) {
+	public void addChinldHanlder(MessageHandler handler) {
 		if (handler != null) {
 			childHandler.add(handler);
 		}
 	}
 
-	public List<MessageOperator> getChinldHanlder() {
+	public List<MessageHandler> getChinldHanlder() {
 		return childHandler;
 	}
 	
 	public void init(String logic) {
 		initInternal(logic);
-		for (MessageOperator handler : childHandler) {
+		for (MessageHandler handler : childHandler) {
 			handler.init(logic);
 		}
 	}

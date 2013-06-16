@@ -4,20 +4,28 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.mdmp.infra.handler.MessageOperator;
+import com.mdmp.infra.bean.Report;
+import com.mdmp.infra.handler.MessageHandler;
+import com.mdmp.infra.handler.sql.FilterHandler;
+import com.mdmp.infra.handler.sql.SelectHandler;
 
 public class OperatorCache extends AbstractCache{
 
-	Map<String, MessageOperator> opCache = new ConcurrentHashMap<String, MessageOperator>();
+	Map<String, MessageHandler> opCache = new ConcurrentHashMap<String, MessageHandler>();
 	
-	public MessageOperator getOperator(Object key) {
-		return opCache.get(key);
+	public MessageHandler getHandler(String reportId) {
+		FilterHandler filter = new FilterHandler();
+		SelectHandler oper = new SelectHandler();
+		filter.addChinldHanlder(oper);
+		String logic = "SELECT location, age*2 WHERE age > 10";
+		filter.init(logic);
+		return filter;
 	}
 
 	@Override
 	public void putValue(Object key, Object value) {
 		String k = (String) key;
-		MessageOperator op = (MessageOperator)value;
+		MessageHandler op = (MessageHandler)value;
 		opCache.put(k, op);
 	}
 

@@ -10,7 +10,11 @@ public class ReportCache extends AbstractCache {
 	Map<String, Report> reportBuf = new ConcurrentHashMap<String, Report>();
 
 	public Report getReport(Object key) {
-		return reportBuf.get(key);
+		//return reportBuf.get(key);
+		// Test Codes
+		Report testReport = new Report();
+		testReport.setId("testId");
+		return testReport;
 	}
 
 	@Override

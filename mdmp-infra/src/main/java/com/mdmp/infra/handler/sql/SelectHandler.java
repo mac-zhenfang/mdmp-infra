@@ -1,4 +1,4 @@
-package com.mdmp.infra.sql;
+package com.mdmp.infra.handler.sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.mdmp.infra.expression.Expression;
-import com.mdmp.infra.handler.AbstractMessageOperator;
+import com.mdmp.infra.handler.AbstractMessageHandler;
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 
-public class SelectOperator  extends AbstractMessageOperator {
+public class SelectHandler  extends AbstractMessageHandler {
 	List<Expression> expressionList;
 
 	public void initInternal(String logic) {
@@ -42,8 +42,8 @@ public class SelectOperator  extends AbstractMessageOperator {
 	}
 
 	public static void main(String[] args) {
-		FilterOperator filter = new FilterOperator();
-		SelectOperator oper = new SelectOperator();
+		FilterHandler filter = new FilterHandler();
+		SelectHandler oper = new SelectHandler();
 		filter.addChinldHanlder(oper);
 		String logic = "SELECT location, age*2 WHERE age > 10";
 		filter.init(logic);

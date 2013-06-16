@@ -1,7 +1,7 @@
 package com.mdmp.infra.handler.sink;
 
-import com.mdmp.infra.handler.AbstractMessageOperator;
-import com.mdmp.infra.handler.MessageOperator;
+import com.mdmp.infra.handler.AbstractMessageHandler;
+import com.mdmp.infra.handler.MessageHandler;
 import com.mdmp.infra.message.Message;
 
 /**
@@ -10,7 +10,7 @@ import com.mdmp.infra.message.Message;
  * @author dream
  *
  */
-public abstract class BasicSink extends AbstractMessageOperator {
+public abstract class BasicSink extends AbstractMessageHandler {
 	
 	@Override
 	public Message processMessage(Message message) throws Exception {

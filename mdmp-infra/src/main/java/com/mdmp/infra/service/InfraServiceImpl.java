@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.mdmp.common.exception.MDMPException;
 import com.mdmp.infra.bean.Report;
 import com.mdmp.infra.cache.CacheManager;
-import com.mdmp.infra.handler.MessageOperator;
+import com.mdmp.infra.handler.MessageHandler;
 import com.mdmp.infra.message.Message;
 
 @Service("infraService")
@@ -18,7 +18,7 @@ public class InfraServiceImpl implements InfraService {
 		try {
 			// Init Handler chain by Handler Factory
 			Report report = CacheManager.getReportCacheInstance().getReport(dsId);
-			MessageOperator handler = CacheManager.getOperatorCacheInstance().getOperator(report.getId());
+			MessageHandler handler = CacheManager.getHandlerCacheInstance().getHandler(report.getId());
 			if(handler==null){
 				return;
 			}

@@ -1,10 +1,10 @@
-package com.mdmp.infra.sql;
+package com.mdmp.infra.handler.sql;
 
-import com.mdmp.infra.handler.AbstractMessageOperator;
+import com.mdmp.infra.handler.AbstractMessageHandler;
 import com.mdmp.infra.message.JsonMessage;
 import com.mdmp.infra.message.Message;
 
-public class GroupbyOperator extends AbstractMessageOperator {
+public class GroupbyHandler extends AbstractMessageHandler {
 	public static final String Delimiter = ",";
 	private static String groupKeys;
 
@@ -34,7 +34,7 @@ public class GroupbyOperator extends AbstractMessageOperator {
 	}
 
 	public static void main(String[] args) {
-		GroupbyOperator oper = new GroupbyOperator();
+		GroupbyHandler oper = new GroupbyHandler();
 		oper.init("location");
 		JsonMessage msg = new JsonMessage(
 				"001",

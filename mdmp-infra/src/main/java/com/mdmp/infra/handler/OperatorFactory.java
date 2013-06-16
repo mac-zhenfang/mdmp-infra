@@ -24,7 +24,7 @@ public class OperatorFactory {
 	public static final int MONGODB_FORWARD_HANDLER = 1;
 	private static ObjectMapper mapper = new ObjectMapper();
 	
-	public static MessageOperator initHandlerChain(String dsId)
+	public static MessageHandler initHandlerChain(String dsId)
 			throws MDMPException, JsonParseException, JsonMappingException, IOException {
 		// Get DataSource by dsId
 		// Get handler logic from Report
@@ -33,19 +33,19 @@ public class OperatorFactory {
 		return initHandlerChainInternal(report.getLogic());
 	}
 
-	private static MessageOperator initHandlerChainInternal(String logic)
+	private static MessageHandler initHandlerChainInternal(String logic)
 			throws MDMPException, JsonParseException, JsonMappingException, IOException {
 		OperatorBean[] handlerList = mapper.readValue(logic, OperatorBean[].class);
-		Map<Integer, MessageOperator> msgHandlerList = new HashMap<Integer, MessageOperator>();
+		Map<Integer, MessageHandler> msgHandlerList = new HashMap<Integer, MessageHandler>();
 		for(OperatorBean oneBean : handlerList){
-			MessageOperator handler = getMessageHandler(oneBean);
+			MessageHandler handler = getMessageHandler(oneBean);
 			if(handler == null){
 				continue;
 			}
 			msgHandlerList.put(oneBean.getIndex(), handler);
 		}
 		for(OperatorBean oneBean : handlerList){
-			MessageOperator handler = msgHandlerList.get(oneBean.getIndex());
+			MessageHandler handler = msgHandlerList.get(oneBean.getIndex());
 			for(int childIndex : oneBean.getChildren()){
 				handler.addChinldHanlder(msgHandlerList.get(childIndex));
 			}
@@ -53,7 +53,7 @@ public class OperatorFactory {
 		return msgHandlerList.get(0);
 	}
 	
-	public static MessageOperator getMessageHandler(OperatorBean handlerBean){
+	public static MessageHandler getMessageHandler(OperatorBean handlerBean){
 		if(MODEL_HANDLER.equals(handlerBean.getName())){
 			return new ModelMessageHandler();
 		}

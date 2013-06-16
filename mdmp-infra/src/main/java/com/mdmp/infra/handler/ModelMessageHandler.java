@@ -2,7 +2,7 @@ package com.mdmp.infra.handler;
 
 import com.mdmp.infra.message.Message;
 
-public class ModelMessageHandler extends AbstractMessageOperator{
+public class ModelMessageHandler extends AbstractMessageHandler{
 
 	@Override
 	public Message processMessage(Message message) throws Exception {

@@ -7,7 +7,7 @@ import com.mdmp.infra.message.Message;
  * @author dream
  *
  */
-public abstract class JsonMessageOperator extends AbstractMessageOperator {
+public abstract class JsonMessageOperator extends AbstractMessageHandler {
 	
 //	public void submitMessage(Message message) throws Exception {
 //		if(Message.MSG_JSON != message.getType()){

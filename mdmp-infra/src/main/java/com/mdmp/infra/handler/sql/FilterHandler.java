@@ -1,12 +1,12 @@
-package com.mdmp.infra.sql;
+package com.mdmp.infra.handler.sql;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.mdmp.infra.expression.Expression;
-import com.mdmp.infra.handler.AbstractMessageOperator;
+import com.mdmp.infra.handler.AbstractMessageHandler;
 import com.mdmp.infra.message.Message;
 
-public class FilterOperator extends AbstractMessageOperator {
+public class FilterHandler extends AbstractMessageHandler {
 	Expression expression;
 
 	@Override

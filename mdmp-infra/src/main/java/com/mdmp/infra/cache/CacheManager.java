@@ -12,7 +12,7 @@ public class CacheManager {
 		return rCache;
 	}
 	
-	public static OperatorCache getOperatorCacheInstance() {
+	public static OperatorCache getHandlerCacheInstance() {
 		return opCache;
 	}
 }
